@@ -1,0 +1,38 @@
+<mat-accordion >
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <!--title ข้านหน้าข้างซ้าย -->
+            <mat-panel-title>
+                Add data               
+            </mat-panel-title>
+            <!--description รายระเอียดตรงกลาง -->
+            <mat-panel-description>
+                Type your data here 
+            </mat-panel-description>
+        
+        </mat-expansion-panel-header>
+        
+        <!-- input อันแรก -->
+        <mat-form-field class="example-form">
+            <input  #v1  id="position" type="number" matInput placeholder="No">
+        </mat-form-field>
+        <mat-form-field class="example-form">
+            <input #v2 matInput placeholder="Name">
+        </mat-form-field>
+
+        <!-- input อันที่2 แบบtext -->
+        <mat-form-field class="example-container">
+            <textarea #v3 matInput placeholder="Weight"></textarea>
+        </mat-form-field>
+
+        <!-- input อันที่3 แบบเลือก-->
+        <mat-form-field class="example-container">
+            <mat-select #v4  placeholder="Symbol">
+              <mat-option value="A">A</mat-option>
+              <mat-option value="B">B</mat-option>
+              <mat-option value="C">C</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button type="submit" mat-flat-button (click)="onclickgetdata(v1.value,v2.value,v3.value,v4.value)">ENTER</button>
+    </mat-expansion-panel>
+  </mat-accordion>

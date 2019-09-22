@@ -7,13 +7,23 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatTableModule} from '@angular/material/table';
+import {MatTableModule, MatTable} from '@angular/material/table';
 import { TableComponent } from './table/table.component';
+import { InputformComponent } from './inputform/inputform.component';
 
+//---- import ตอนทำ input component
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import { FormsModule } from "@angular/forms";
+
+//----
 @NgModule({
   declarations: [
     AppComponent,
-    TableComponent
+    TableComponent,
+    InputformComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +31,14 @@ import { TableComponent } from './table/table.component';
     BrowserAnimationsModule,
     MatButtonModule, 
     MatCheckboxModule,
-    MatTableModule
+    MatTableModule,
+    //---- import ตอนทำ input component
+    MatExpansionModule,//extension ที่กดแล้วจะลงมา
+    MatFormFieldModule,//form ที่ไว้ใส่ข้อมูล
+    MatInputModule,//forminput ที่ไว้ใส่ข้อมูล
+    MatSelectModule,//SelectModule input แบบเลือก
+    FormsModule,
+    //----
   ],
   providers: [],
   bootstrap: [AppComponent],
