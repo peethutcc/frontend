@@ -11,6 +11,7 @@ import {MatTableModule, MatTable} from '@angular/material/table';
 import { TableComponent } from './table/table.component';
 import { InputformComponent } from './inputform/inputform.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatMenuModule} from '@angular/material/menu';
 
 //---- import ตอนทำ input component
 import {MatExpansionModule} from '@angular/material/expansion';
@@ -34,6 +35,8 @@ import { FormsModule } from "@angular/forms";
     MatCheckboxModule,
     MatTableModule,
     MatToolbarModule,
+    MatMenuModule,
+    
     //---- import ตอนทำ input component
     MatExpansionModule,//extension ที่กดแล้วจะลงมา
     MatFormFieldModule,//form ที่ไว้ใส่ข้อมูล
