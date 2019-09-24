@@ -6,4 +6,4 @@ import {Component} from '@angular/core';
   templateUrl: 'head.component.html',
   styleUrls: ['head.component.css'],
 })
-export class ToolbarMultirowExample {}
+export class head {}
