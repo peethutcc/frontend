@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule,} from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +12,7 @@ import { TableComponent } from './table/table.component';
 import { InputformComponent } from './inputform/inputform.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatIconModule} from '@angular/material/icon';
 
 //---- import ตอนทำ input component
 import {MatExpansionModule} from '@angular/material/expansion';
@@ -19,13 +20,15 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import { FormsModule } from "@angular/forms";
+import { headcomponent } from './head/head.component';
 
 //----
 @NgModule({
   declarations: [
     AppComponent,
     TableComponent,
-    InputformComponent
+    InputformComponent,
+    headcomponent,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +39,7 @@ import { FormsModule } from "@angular/forms";
     MatTableModule,
     MatToolbarModule,
     MatMenuModule,
+    MatIconModule,
     
     //---- import ตอนทำ input component
     MatExpansionModule,//extension ที่กดแล้วจะลงมา
@@ -47,6 +51,5 @@ import { FormsModule } from "@angular/forms";
   ],
   providers: [],
   bootstrap: [AppComponent],
-
 })
 export class AppModule { }
