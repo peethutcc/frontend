@@ -7,7 +7,7 @@ import { TabledataService } from '../services/tabledata.service';
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol','actions'];
   columnsToDisplay: string[] = this.displayedColumns.slice();
   
   //data = ELEMENT_DATA;
