@@ -13,6 +13,7 @@ import { InputformComponent } from './inputform/inputform.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 //---- import ตอนทำ input component
@@ -22,7 +23,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import { FormsModule } from "@angular/forms";
 import { headcomponent } from './head/head.component';
-
+import { AddComponent } from './add/add.component';
+import { DialogOverviewExampleDialog } from './add/add.component';
 //----
 @NgModule({
   declarations: [
@@ -30,6 +32,9 @@ import { headcomponent } from './head/head.component';
     TableComponent,
     InputformComponent,
     headcomponent,
+    AddComponent,
+    DialogOverviewExampleDialog,
+
   ],
   imports: [
     BrowserModule,
@@ -41,6 +46,7 @@ import { headcomponent } from './head/head.component';
     MatToolbarModule,
     MatMenuModule,
     MatIconModule,
+    MatDialogModule,
     
     //---- import ตอนทำ input component
     MatExpansionModule,//extension ที่กดแล้วจะลงมา
@@ -52,5 +58,6 @@ import { headcomponent } from './head/head.component';
   ],
   providers: [],
   bootstrap: [AppComponent],
+  entryComponents:[DialogOverviewExampleDialog],
 })
 export class AppModule { }
