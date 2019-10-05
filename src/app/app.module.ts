@@ -25,6 +25,7 @@ import { FormsModule } from "@angular/forms";
 import { headcomponent } from './head/head.component';
 import { AddComponent } from './add/add.component';
 import { DialogOverviewExampleDialog } from './add/add.component';
+import { TestserviceComponent } from './testservice/testservice.component';
 //----
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { DialogOverviewExampleDialog } from './add/add.component';
     InputformComponent,
     headcomponent,
     AddComponent,
+    TestserviceComponent,
     DialogOverviewExampleDialog,
 
   ],
