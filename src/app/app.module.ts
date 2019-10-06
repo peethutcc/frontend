@@ -25,6 +25,7 @@ import { FormsModule } from "@angular/forms";
 import { headcomponent } from './head/head.component';
 import { AddComponent } from './add/add.component';
 import { DialogOverviewExampleDialog } from './add/add.component';
+import { TestserviceComponent } from './testservice/testservice.component';
 //----
 import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
@@ -48,6 +49,7 @@ import { MatNativeDateModule } from "@angular/material";
     InputformComponent,
     headcomponent,
     AddComponent,
+    TestserviceComponent,
     DialogOverviewExampleDialog,
     AddDialogComponent,
     SearchDialogComponent,
