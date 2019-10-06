@@ -13,8 +13,8 @@ import { InputformComponent } from './inputform/inputform.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
+//---- อิมพอร์ท ป๊อปอัพ
 import {MatDialogModule} from '@angular/material/dialog';
-
 
 //---- import ตอนทำ input component
 import {MatExpansionModule} from '@angular/material/expansion';
@@ -26,6 +26,21 @@ import { headcomponent } from './head/head.component';
 import { AddComponent } from './add/add.component';
 import { DialogOverviewExampleDialog } from './add/add.component';
 //----
+import {MatCardModule} from '@angular/material/card';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatSortModule} from '@angular/material/sort';
+//--- pop up dialog ---//
+import { AddDialogComponent } from './add-dialog/add-dialog.component';
+import { SearchDialogComponent } from './search-dialog/search-dialog.component';
+import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
+import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
+//---
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
+import { MatNativeDateModule } from "@angular/material";
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,6 +49,10 @@ import { DialogOverviewExampleDialog } from './add/add.component';
     headcomponent,
     AddComponent,
     DialogOverviewExampleDialog,
+    AddDialogComponent,
+    SearchDialogComponent,
+    EditDialogComponent,
+    DeleteDialogComponent,
 
   ],
   imports: [
@@ -47,7 +66,6 @@ import { DialogOverviewExampleDialog } from './add/add.component';
     MatMenuModule,
     MatIconModule,
     MatDialogModule,
-    
     //---- import ตอนทำ input component
     MatExpansionModule,//extension ที่กดแล้วจะลงมา
     MatFormFieldModule,//form ที่ไว้ใส่ข้อมูล
@@ -55,9 +73,15 @@ import { DialogOverviewExampleDialog } from './add/add.component';
     MatSelectModule,//SelectModule input แบบเลือก
     FormsModule,
     //----
+    MatCardModule,
+    MatGridListModule,
+    MatSortModule,
+    MatDatepickerModule,
+    MatBottomSheetModule,
+    MatNativeDateModule
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents:[DialogOverviewExampleDialog],
+  entryComponents:[AddDialogComponent,SearchDialogComponent,EditDialogComponent,DeleteDialogComponent],
 })
 export class AppModule { }

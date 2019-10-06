@@ -18,7 +18,7 @@ export class InputformComponent implements OnInit {
   onclickgetdata(v1,v2,v3,v4){
     this.value = {'position': v1,'name':v2,'weight':v3,'symbol':v4};
 
-    this.tb.getData(this.value);//ฟังชั้นของ TabledataService
+    //this.tb.getData(this.value);//ฟังชั้นของ TabledataService
   }
 
 }

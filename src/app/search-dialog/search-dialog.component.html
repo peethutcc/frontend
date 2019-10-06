@@ -1,0 +1,51 @@
+<h2 mat-dialog-title>Advance Search</h2>
+<mat-dialog-content class="ass" >
+    
+    <div class="example-container">
+            <h2>วันรับเอกสาร</h2>
+        <mat-form-field class="ass">
+            <input matInput [matDatepicker]="picker1" placeholder="วันที่ของเอกสาร">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="ass">
+            <input matInput [matDatepicker]="picker2" placeholder="วันที่ของเอกสาร">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+        <h2>วันที่ของเอกสาร</h2>
+            <mat-form-field class="ass">
+                <input matInput [matDatepicker]="picker3" placeholder="วันที่ของเอกสาร">
+                <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                <mat-datepicker #picker3></mat-datepicker>
+            </mat-form-field>
+    
+            <mat-form-field class="ass">
+                <input matInput [matDatepicker]="picker4" placeholder="วันที่ของเอกสาร">
+                <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+                <mat-datepicker #picker4></mat-datepicker>
+            </mat-form-field> 
+            <h2>รายระเอียดเอกสาร</h2>
+            <mat-form-field class="ass">
+                <input matInput placeholder="ผู้เสนอ">
+            </mat-form-field>
+    
+            <mat-form-field class="ass">
+                <input matInput placeholder="หัวข้อ">
+            </mat-form-field>
+            <mat-form-field  >
+                    <mat-select placeholder="สถานะ" >
+                        <mat-option value="option">ทั้งหมด</mat-option>
+                        <mat-option value="option">กำลังดำเนินการ</mat-option>
+                        <mat-option value="option">เสร็จ</mat-option>
+                    </mat-select>
+                </mat-form-field>    
+    </div>
+    
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="true" >Submit</button>
+    <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

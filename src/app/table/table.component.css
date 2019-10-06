@@ -1,3 +1,17 @@
+.example-container {
+  height: 870px;
+  overflow: auto;
+}
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+th.mat-sort-header-sorted {
+  color: black;
+}
+
 table {
-    width: 130%;
+    width: 100%;
   }
+  
+

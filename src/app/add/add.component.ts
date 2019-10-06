@@ -14,6 +14,7 @@ export interface DialogData {
 export class AddComponent  {
 
   constructor(public dialog: MatDialog) { }
+  
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
       width: '250px',
