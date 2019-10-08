@@ -12,9 +12,9 @@ export class TabledataService {
   x = 0;
   dataSource = new MatTableDataSource(ELEMENT_DATA);
 
-  constructor() { }
-
-  init(){
+  data:any[] = [];
+  datare;
+  constructor() { 
     Parse.serverURL = 'https://parseapi.back4app.com'; // This is your Server URL
     Parse.initialize(
       'x96xrHRh3rIIVxp9lP4nU6N1gUgGlmgrcpD9tJ6d', // This is your Application ID
@@ -38,8 +38,18 @@ export class TabledataService {
     query.find().then((results) => {
       // You can use the "get" method to get the value of an attribute
       // Ex: response.get("<ATTRIBUTE_NAME>")
-      console.log('My2Class found', results);
-      return results;
+      
+      for (let i of results){
+        
+
+        this.data.push({position: i.get("position"), name: i.get("name"), weight: i.get("weight"), symbol: i.get("symbol")}) 
+      }
+      
+      console.log('My2Class found', this.data);
+      this.datare = new MatTableDataSource(this.data);
+
+      return this.datare;
+      
     }, (error) => {
       if (typeof document !== 'undefined') document.write(`Error while fetching My2Class: ${JSON.stringify(error)}`);
       console.error('Error while fetching My2Class', error);

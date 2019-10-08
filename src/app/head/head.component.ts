@@ -19,7 +19,7 @@ constructor(public dialog: MatDialog,private _bottomSheet: MatBottomSheet) {}
     }
 
     openDialogAdd(){
-      const dialogRef = this.dialog.open(AddDialogComponent);
+      const dialogRefAdd = this.dialog.open(AddDialogComponent);
     }
 
     openDialogSearch(){
