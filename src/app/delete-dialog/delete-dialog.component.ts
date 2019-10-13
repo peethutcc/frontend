@@ -15,15 +15,16 @@ export class DeleteDialogComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.id =this.ps.getid();
   }
 
 
   delete(){
     const TeachernameClass = Parse.Object.extend('Teachername');
     const query = new Parse.Query(TeachernameClass);
-    this.id =this.ps.getid();
+    
     // here you put the objectId that you want to delete
-    query.get(this.id).then((object) => {
+    query.get(this.id.objectId).then((object) => {
       object.destroy().then((response) => {
         console.log('Deleted ParseObject', response);
       }, (error) => {

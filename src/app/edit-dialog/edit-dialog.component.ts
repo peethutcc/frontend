@@ -9,20 +9,22 @@ import * as Parse from'parse';
 })
 export class EditDialogComponent implements OnInit {
   id;
+  ob1;ob2;ob3;ob4;ob5;
   constructor(public ps:ParseapiService) { 
     ps.init();
  
   }
 
   ngOnInit() {
+    this.id =this.ps.getid();
   }
   
   edit(v1,v2,v3,v4,v5){
   const TeachernameClass = Parse.Object.extend('Teachername');
   const query = new Parse.Query(TeachernameClass);
-  this.id =this.ps.getid();
+  
 
-  query.get(this.id).then((teachername) => {
+  query.get(this.id.objectId).then((teachername) => {
     teachername.set('name', v1);
     teachername.set('surname',v2 );
     teachername.set('date',v3 );
