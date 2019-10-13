@@ -20,12 +20,12 @@ init(){
 }
 
 //เพิ่มข้อมูล
-adddata(){
+/*adddata(){
   const TeachernameClass = Parse.Object.extend('Teachername');
   const teachername = new TeachernameClass();
 
-  teachername.set('name', 'peeth');
-  teachername.set('surname', 'sudlor');
+  teachername.set('name', );
+  teachername.set('surname', );
 
   teachername.save().then(
     (result) => {
@@ -37,8 +37,30 @@ adddata(){
       console.error('Error while creating ParseObject: ', error);
     }
   );
+}*/
+Obid:string; 
+
+onclickgetdata(v1,v2){
+   
+  const TeachernameClass = Parse.Object.extend('Teachername');
+  const teachername = new TeachernameClass();
+
+  teachername.set('name', v1);
+  teachername.set('surname',v2 );
+
+  teachername.save();
+  //this.tb.getData(this.value);//ฟังชั้นของ TabledataService
+}
+  
+sendid(id){
+this.Obid=id;
+
+
+}
+
+getid(){
+  return this.Obid;
 }
 
 
-  
 }
