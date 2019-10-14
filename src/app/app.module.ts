@@ -39,7 +39,11 @@ import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import { MatNativeDateModule } from "@angular/material";
+import { MainComponent } from './main/main.component';
+import { LoginComponent } from './login/login.component';
 
+
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -55,6 +59,8 @@ import { MatNativeDateModule } from "@angular/material";
     SearchDialogComponent,
     EditDialogComponent,
     DeleteDialogComponent,
+    MainComponent,
+    LoginComponent,
 
   ],
   imports: [
@@ -80,7 +86,8 @@ import { MatNativeDateModule } from "@angular/material";
     MatSortModule,
     MatDatepickerModule,
     MatBottomSheetModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
