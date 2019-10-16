@@ -2,25 +2,29 @@
 <mat-dialog-content >
     <div class="example-container">
         <mat-form-field>
-            <input #v1 matInput placeholder="หัวข้อเรื่อง" [value]="id.name">
+            <textarea #v1 matInput placeholder="หัวข้อเรื่อง" [value]="ob.titleName"></textarea>
         </mat-form-field>
               
         <mat-form-field>
-            <input #v2 matInput placeholder="เจ้าของเรื่อง" [value]="id.surname">
+            <input #v2 matInput placeholder="เจ้าของเรื่อง" [value]="ob.docOwner">
         </mat-form-field>
 
         <mat-form-field >
-            <input #v3  matInput [matDatepicker]="picker" placeholder="วันที่ของเอกสาร" [value]="id.date.iso">
+            <input #v3  matInput [matDatepicker]="picker" placeholder="วันที่ของเอกสาร" [value]="ob.docDate.iso">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field>
-            <input #v4 matInput placeholder="ต้นฉบับ"[value]="id.originalfile">
+            <input #v4 matInput placeholder="ต้นฉบับ" [value]="ob.ogManuscript">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input type="number" #v5 matInput placeholder="จำนวนเงิน" [value]="ob.amount">
         </mat-form-field>
               
         <mat-form-field>
-            <mat-select #v5 placeholder="สถานะ" [value]="id.status">
+            <mat-select #v6 placeholder="สถานะ" [value]="ob.status">
                 <mat-option value="กำลังดำเนินการ">กำลังดำเนินการ</mat-option>
                 <mat-option value="เสร็จ">เสร็จ</mat-option>
             </mat-select>
@@ -31,6 +35,6 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-    <button type="submit" mat-flat-button mat-dialog-close (click)="editdata(v1.value,v2.value,v3.value,v4.value,v5.value)">ENTER</button>
+    <button type="submit" mat-flat-button mat-dialog-close (click)="editdata(v1.value,v2.value,v3.value,v4.value,v5.value,v6.value)">ENTER</button>
     <button mat-button mat-dialog-close>Cancel</button>
 </mat-dialog-actions>

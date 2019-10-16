@@ -18,9 +18,13 @@
         <mat-form-field>
             <input #v4 matInput placeholder="ต้นฉบับ">
         </mat-form-field>
+
+        <mat-form-field>
+            <input type="number" #v5 matInput placeholder="จำนวนเงิน">
+        </mat-form-field>
               
         <mat-form-field>
-            <mat-select #v5 placeholder="สถานะ">
+            <mat-select #v6 placeholder="สถานะ">
                 <mat-option value="กำลังดำเนินการ">กำลังดำเนินการ</mat-option>
                 <mat-option value="เสร็จ">เสร็จ</mat-option>
             </mat-select>
@@ -31,6 +35,6 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-    <button type="submit" mat-flat-button mat-dialog-close (click)=" adddata(v1.value,v2.value,v3.value,v4.value,v5.value)">ENTER</button>
+    <button type="submit" mat-flat-button mat-dialog-close (click)=" adddata(v1.value,v2.value,v3.value,v4.value,v5.value,v6.value)">ENTER</button>
     <button mat-button mat-dialog-close>Cancel</button>
 </mat-dialog-actions>

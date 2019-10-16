@@ -18,39 +18,16 @@ constructor(public dialog: MatDialog,private _bottomSheet: MatBottomSheet,parse:
 
 
     ngOnInit() {
-      this.adddata
     }
 
     openDialogAdd(){
       let dialogRefAdd = this.dialog.open(AddDialogComponent);
-
-      dialogRefAdd.afterClosed().subscribe(result=> {
-        console.log(`Dialog result : ${result}`);
-      }
-   )
     }
 
     openDialogSearch(){
       const dialogRef = this.dialog.open(SearchDialogComponent);
     }
 
-    adddata(){
-      const TeachernameClass = Parse.Object.extend('Teachername');
-      const teachername = new TeachernameClass();
     
-      teachername.set('name', 'peeth');
-      teachername.set('surname', 'sudlor');
-    
-      teachername.save().then(
-        (result) => {
-          if (typeof document !== 'undefined') document.write(`ParseObject created: ${JSON.stringify(result)}`);
-          console.log('ParseObject created', result);
-        },
-        (error) => {
-          if (typeof document !== 'undefined') document.write(`Error while creating ParseObject: ${JSON.stringify(error)}`);
-          console.error('Error while creating ParseObject: ', error);
-        }
-      );
-    }
 }
 

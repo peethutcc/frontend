@@ -2,21 +2,22 @@ import { Injectable } from '@angular/core';
 import * as Parse from'parse';//อิมพอร์ตparse
 import {MatTableDataSource} from '@angular/material/table';
 import { TableComponent } from './table/table.component';
+import { stringify } from 'querystring';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ParseapiService {
   datare2;
-  constructor() { }
+  constructor(private _snackBar: MatSnackBar) { }
 //เรียกให้มันอินิตตามที่เราตั้งไว้
 init(){
-
   Parse.serverURL = 'https://parseapi.back4app.com'; // This is your Server URL
   Parse.initialize(
-    'x1Byc5Aeg5RRgBHiMvOe9wjylsnYIEiYPFGQ0DnO', // This is your Application ID
-    'UJUOaxumcweylTrHStQAb1YUrdLMFfEns7gUJYgd', // This is your Javascript key
-    'IXHLeK8teuYmQvEvfQz2Asf8zf6G4qe2Xl4r59CO' // This is your Master key (never use it in the frontend)
+    '5edaoITqUp7S45cXm8KTny8Nml7KRey9pl89rsmP', // This is your Application ID
+    'cJ5ZW7dr3ZaQFfsxrQPq4CKAX4RybkYvf0yho5MX', // This is your Javascript key
+    'nVs74U5EW8xEsA3hcUZMtGiO38R3Rb50uksmqJe9' // This is your Master key (never use it in the frontend)
   );
 }
 
@@ -43,16 +44,31 @@ Obid;
 
 
 //aaddata function
-onclickgetdata(v1,v2,v3,v4,v5){
+onclickgetdata(v1,v2,v3,v4,v5,v6){
    
-  const TeachernameClass = Parse.Object.extend('tt');
+  const TeachernameClass = Parse.Object.extend('meta_data');
   const teachername = new TeachernameClass();
+
+  var MyCustomClass = Parse.Object.extend("meta_data");
+  var query = new Parse.Query(MyCustomClass);
+  query.count().then(count => {
+    console.log(`ParseObjects found: ${count}`);
+
+
+    teachername.set('no', Number(count+1));
+
+    teachername.set('titleName', v1);
+    teachername.set('docOwner',v2 );
+    teachername.set('ogManuscript',v4 );
+    teachername.set('amount',Number(v5) );
+    teachername.set('docDate',new Date(v3));
+    teachername.save('status',v6).then((response) => {
+      
+     });
+    
+  });
   
-  teachername.set('name', v1);
-  teachername.set('surname',v2 );
-  teachername.set('date',new Date(v3) );
-  teachername.set('originalfile',v4 );
-  teachername.save('status',v5);
+  
 
   console.log(JSON.parse(JSON.stringify(teachername)));
   //this.tb.getData(this.value);//ฟังชั้นของ TabledataService
@@ -60,19 +76,13 @@ onclickgetdata(v1,v2,v3,v4,v5){
   
 //showdata function
 getData(){
-  const My2Class = Parse.Object.extend('tt');
+  const My2Class = Parse.Object.extend('meta_data');
   const query = new Parse.Query(My2Class);
 
   query.descending("createdAt");
   
   let data = query.find().then((results) => {
-    // You can use the "get" method to get the value of an attribute
-    // Ex: response.get("<ATTRIBUTE_NAME>")
-    //console.log('My2Class found', results);
-    //console.log(JSON.parse(JSON.stringify(results)));
-    //console.log('My2Class found', this.datare);
     console.log(JSON.parse(JSON.stringify(results)));
-    //this.datare2 = new MatTableDataSource(JSON.parse(JSON.stringify(results)));
     return results;
 
   }, (error) => {
@@ -85,28 +95,31 @@ getData(){
 
 
 //editdata function
-edit(v1,v2,v3,v4,v5){
-  const TeachernameClass = Parse.Object.extend('tt');
+edit(v1,v2,v3,v4,v5,v6){
+  const TeachernameClass = Parse.Object.extend('meta_data');
   const query = new Parse.Query(TeachernameClass);
   
 
   query.get(this.Obid.objectId).then((teachername) => {
-    teachername.set('name', v1);
-    teachername.set('surname',v2 );
-    teachername.set('date',new Date(v3) );
-    teachername.set('originalfile',v4 );
-    teachername.save('status',v5);
+
+    teachername.set('titleName', v1);
+    teachername.set('docOwner',v2 );
+    teachername.set('ogManuscript',v4 );
+    teachername.set('amount',Number(v5) );
+    teachername.set('docDate',new Date(v3));
+    teachername.set('status',v6);
+
     teachername.save().then((response) => {
-      // You can use the "get" method to get the value of an attribute
-      // Ex: response.get("<ATTRIBUTE_NAME>")
+      
      });
+     
   });
   
 }
 
 //deletedata function
 delete(){
-  const TeachernameClass = Parse.Object.extend('tt');
+  const TeachernameClass = Parse.Object.extend('meta_data');
   const query = new Parse.Query(TeachernameClass);
   
   // here you put the objectId that you want to delete

@@ -5,6 +5,7 @@ import {MatSort} from '@angular/material/sort';
 import { EditDialogComponent } from '../edit-dialog/edit-dialog.component';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { ParseapiService } from '../parseapi.service';
+import {MatTableDataSource} from '@angular/material/table';
 
 
 @Component({
@@ -13,7 +14,7 @@ import { ParseapiService } from '../parseapi.service';
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol','actions'];
+  displayedColumns: string[] = ['no','titleName', 'docOwner', 'ogManuscript', 'amount','docDate','status','actions'];
   //เรียงข้อมูล
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
@@ -22,27 +23,26 @@ export class TableComponent implements OnInit {
   mailbox;
   //data = ELEMENT_DATA;
   constructor(public tb:TabledataService,public dialog: MatDialog,public ps:ParseapiService) {
-    tb.init();
-    
-  
-    //tb.getData();
+    ps.init();
    }
 
   ngOnInit() {
     //ไว้เรียงข้อมูล
-    this.data.sort = this.sort;
-    console.log(this.datare2);
+    //this.data.sort = this.sort;
+
     //รับข้อมูล
     this.mailbox=this.ps.getData();
     this.mailbox.then( results => {
       console.log("sssss");
       console.log(results);
       this.datare2 = JSON.parse(JSON.stringify(results))
+      this.datare2 = new MatTableDataSource(this.datare2);
+      this.datare2.sort = this.sort;
     })
   }
 
   //เรียกเซอร์วิส TabledataService มาแล้วใช้ฟังชั่น sendData() ในเซอรืวิส
-  data = this.tb.sendData();
+  //data = this.tb.sendData();
   
 
   //ฟิวเตอร์ หาข้อมูล
@@ -55,7 +55,7 @@ export class TableComponent implements OnInit {
     const dialogRef = this.dialog.open(EditDialogComponent);
     
   }
-
+  //เปิด dialog
   openDialogDelete(){
     const dialogRef = this.dialog.open(DeleteDialogComponent);
   }

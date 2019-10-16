@@ -10,8 +10,6 @@ export class DeleteDialogComponent implements OnInit {
   id;
   constructor(public ps:ParseapiService) { 
     ps.init();
- 
-
   }
 
   ngOnInit() {

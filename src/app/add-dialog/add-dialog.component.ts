@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ParseapiService } from '../parseapi.service';
 import * as Parse from'parse';
 import { deepStrictEqual } from 'assert';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-dialog',
@@ -10,20 +11,18 @@ import { deepStrictEqual } from 'assert';
 })
 export class AddDialogComponent implements OnInit {
  
-  constructor(public parse:ParseapiService) {
+  constructor(public parse:ParseapiService,private _snackBar: MatSnackBar) {
     parse.init();
-   
-
-    //parse.adddata();
-
    }
 
   ngOnInit() {
-    
   }
 
-  adddata(v1,v2,v3,v4,v5){
-    this.parse.onclickgetdata(v1,v2,v3,v4,v5);
+  adddata(v1,v2,v3,v4,v5,v6){
+    this.parse.onclickgetdata(v1,v2,v3,v4,v5,v6);
+    this._snackBar.open('Success', 'Refesh', {
+      duration: 2000,
+    });
   }
 
   /* onclickgetdata(v1,v2,v3,v4,v5){

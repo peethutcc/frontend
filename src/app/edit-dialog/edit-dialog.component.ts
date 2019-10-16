@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ParseapiService } from '../parseapi.service';
 import * as Parse from'parse';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-edit-dialog',
@@ -8,19 +9,19 @@ import * as Parse from'parse';
   styleUrls: ['./edit-dialog.component.css']
 })
 export class EditDialogComponent implements OnInit {
-  id;
-  ob1;ob2;ob3;ob4;ob5;
-  constructor(public ps:ParseapiService) { 
+  ob;
+  constructor(public ps:ParseapiService,private _snackBar: MatSnackBar) { 
     ps.init();
  
   }
 
   ngOnInit() {
-    this.id =this.ps.getid();
+    this.ob =this.ps.getid();
   }
   
-  editdata(v1,v2,v3,v4,v5){
-    this.ps.edit(v1,v2,v3,v4,v5);
+  editdata(v1,v2,v3,v4,v5,v6){
+    this.ps.edit(v1,v2,v3,v4,v5,v6);
+    
   }
   /*edit(v1,v2,v3,v4,v5){
   const TeachernameClass = Parse.Object.extend('tt');
