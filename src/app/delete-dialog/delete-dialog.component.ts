@@ -17,9 +17,11 @@ export class DeleteDialogComponent implements OnInit {
   ngOnInit() {
     this.id =this.ps.getid();
   }
+deletedata(){
+  this.ps.delete();
+}
 
-
-  delete(){
+  /*delete(){
     const TeachernameClass = Parse.Object.extend('Teachername');
     const query = new Parse.Query(TeachernameClass);
     
@@ -32,7 +34,7 @@ export class DeleteDialogComponent implements OnInit {
         console.error('Error while deleting ParseObject', error);
       });
     });
-    }
+    }*/
 
 
 }

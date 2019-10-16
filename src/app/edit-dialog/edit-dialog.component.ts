@@ -19,8 +19,11 @@ export class EditDialogComponent implements OnInit {
     this.id =this.ps.getid();
   }
   
-  edit(v1,v2,v3,v4,v5){
-  const TeachernameClass = Parse.Object.extend('Teachername');
+  editdata(v1,v2,v3,v4,v5){
+    this.ps.edit(v1,v2,v3,v4,v5);
+  }
+  /*edit(v1,v2,v3,v4,v5){
+  const TeachernameClass = Parse.Object.extend('tt');
   const query = new Parse.Query(TeachernameClass);
   
 
@@ -35,7 +38,7 @@ export class EditDialogComponent implements OnInit {
       // Ex: response.get("<ATTRIBUTE_NAME>")
      });
   });
-  }
+  }*/
 
 
   

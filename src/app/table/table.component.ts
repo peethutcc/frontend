@@ -1,9 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TabledataService } from '../services/tabledata.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import * as Parse from 'parse';
 import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
 import { EditDialogComponent } from '../edit-dialog/edit-dialog.component';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { ParseapiService } from '../parseapi.service';
@@ -21,17 +19,26 @@ export class TableComponent implements OnInit {
 
   datare:any[] = [];
   datare2;
+  mailbox;
   //data = ELEMENT_DATA;
   constructor(public tb:TabledataService,public dialog: MatDialog,public ps:ParseapiService) {
     tb.init();
+    
   
     //tb.getData();
    }
 
   ngOnInit() {
     //ไว้เรียงข้อมูล
-    this.getData()
     this.data.sort = this.sort;
+    console.log(this.datare2);
+    //รับข้อมูล
+    this.mailbox=this.ps.getData();
+    this.mailbox.then( results => {
+      console.log("sssss");
+      console.log(results);
+      this.datare2 = JSON.parse(JSON.stringify(results))
+    })
   }
 
   //เรียกเซอร์วิส TabledataService มาแล้วใช้ฟังชั่น sendData() ในเซอรืวิส
@@ -54,8 +61,8 @@ export class TableComponent implements OnInit {
   }
   //data2 = this.tb.getData();
 
-  getData(){
-    const My2Class = Parse.Object.extend('Teachername');
+ /* getData(){
+    const My2Class = Parse.Object.extend('tt');
     const query = new Parse.Query(My2Class);
 
     query.descending("createdAt");
@@ -72,10 +79,11 @@ export class TableComponent implements OnInit {
       if (typeof document !== 'undefined') document.write(`Error while fetching My2Class: ${JSON.stringify(error)}`);
       console.error('Error while fetching My2Class', error);
     });
-  }
+  }*/
   onclicktestdata(row){
     this.ps.sendid(row);
     console.log(row);
-  };
+  }
+  
 }
 
