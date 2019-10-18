@@ -73,15 +73,21 @@ onclickgetdata(v1,v2,v3,v4,v5,v6){
   console.log(JSON.parse(JSON.stringify(teachername)));
   //this.tb.getData(this.value);//ฟังชั้นของ TabledataService
 }
-  
+data;
+
+query(){
+
+}
 //showdata function
 getData(){
   const My2Class = Parse.Object.extend('meta_data');
   const query = new Parse.Query(My2Class);
 
-  query.descending("createdAt");
-  
-  let data = query.find().then((results) => {
+  //query.descending("createdAt");
+  //query.equalTo("docDate","")
+  //query.greaterThan("docDate",new Date("2019-10-5"))
+
+  this.data = query.find().then((results) => {
     console.log(JSON.parse(JSON.stringify(results)));
     return results;
 
@@ -90,7 +96,7 @@ getData(){
     console.error('Error while fetching My2Class', error);
   });
 
-  return data;
+  return this.data;
 }
 
 
@@ -99,7 +105,6 @@ edit(v1,v2,v3,v4,v5,v6){
   const TeachernameClass = Parse.Object.extend('meta_data');
   const query = new Parse.Query(TeachernameClass);
   
-
   query.get(this.Obid.objectId).then((teachername) => {
 
     teachername.set('titleName', v1);
@@ -108,21 +113,16 @@ edit(v1,v2,v3,v4,v5,v6){
     teachername.set('amount',Number(v5) );
     teachername.set('docDate',new Date(v3));
     teachername.set('status',v6);
-
     teachername.save().then((response) => {
-      
      });
-     
   });
-  
 }
 
 //deletedata function
 delete(){
   const TeachernameClass = Parse.Object.extend('meta_data');
   const query = new Parse.Query(TeachernameClass);
-  
-  // here you put the objectId that you want to delete
+
   query.get(this.Obid.objectId).then((object) => {
     object.destroy().then((response) => {
       console.log('Deleted ParseObject', response);
@@ -135,8 +135,6 @@ delete(){
   }
   sendid(id){
 this.Obid=id;
-
-
 }
 
 getid(){

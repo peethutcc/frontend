@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ParseapiService } from '../parseapi.service';
 
 @Component({
   selector: 'app-search-dialog',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchDialogComponent implements OnInit {
 
-  constructor() { }
+  constructor(public parse:ParseapiService) { 
+    parse.init();
+  }
 
   ngOnInit() {
   }

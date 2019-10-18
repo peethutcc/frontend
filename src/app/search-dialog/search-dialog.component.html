@@ -2,6 +2,7 @@
 <mat-dialog-content class="ass" >
     
     <div class="example-container">
+        
             <h2>วันรับเอกสาร</h2>
         <mat-form-field class="ass">
             <input matInput [matDatepicker]="picker1" placeholder="วันที่ของเอกสาร">
@@ -34,13 +35,14 @@
             <mat-form-field class="ass">
                 <input matInput placeholder="หัวข้อ">
             </mat-form-field>
+            
             <mat-form-field  >
-                    <mat-select placeholder="สถานะ" >
-                        <mat-option value="option">ทั้งหมด</mat-option>
-                        <mat-option value="option">กำลังดำเนินการ</mat-option>
-                        <mat-option value="option">เสร็จ</mat-option>
-                    </mat-select>
-                </mat-form-field>    
+                <mat-select placeholder="สถานะ" >
+                    <mat-option value="option">ทั้งหมด</mat-option>
+                    <mat-option value="option">กำลังดำเนินการ</mat-option>
+                    <mat-option value="option">เสร็จ</mat-option>
+                </mat-select>
+            </mat-form-field>    
     </div>
     
 </mat-dialog-content>

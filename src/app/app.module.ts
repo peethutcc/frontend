@@ -46,6 +46,9 @@ import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
+import {ErrorStateMatcher} from '@angular/material/core';
+import { RegisterComponent } from './register/register.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,6 +64,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     DeleteDialogComponent,
     MainComponent,
     LoginComponent,
+    RegisterComponent,
 
   ],
   imports: [
@@ -88,7 +92,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatBottomSheetModule,
     MatNativeDateModule,
     ReactiveFormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent],
