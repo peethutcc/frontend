@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { ParseapiService } from '../parseapi.service';
 
 @Component({
   selector: 'app-login',
@@ -8,7 +9,9 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(public parse:ParseapiService) {
+    parse.init();
+   }
 
   ngOnInit() {
   }
@@ -26,4 +29,7 @@ export class LoginComponent implements OnInit {
 
   @Output() submitEM = new EventEmitter();
 
+  logIn(u1,u2){
+    this.parse.logIn(u1,u2);
+  }
 }

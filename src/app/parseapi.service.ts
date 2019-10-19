@@ -140,6 +140,30 @@ this.Obid=id;
 getid(){
   return this.Obid;
 }
+//singup
+signUp(u1, u2, u3) {
+
+  var user = new Parse.User();
+  user.set('username', u1);
+  user.set("password", u2);
+  user.set("email", u3);
+
+  user.signUp().then(function(user) {
+      console.log('User created successful with name: ' + user.get("username") + ' and email: ' + user.get("email"));
+  }).catch(function(error){
+      console.log("Error: " + error.code + " " + error.message);
+  });
+  
+}
+//login
+logIn(u1, u2) {
+  var user = Parse.User
+  .logIn(u1, u2).then(function(user) {
+      console.log('User Login successful with name: ' + user.get("username") + ' and email: ' + user.get("email"));
+}).catch(function(error){
+  console.log("Error: " + error.code + " " + error.message);
+});
+}
 
 
 }

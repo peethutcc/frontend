@@ -4,13 +4,13 @@
     <form [formGroup]="form" (ngSubmit)="submit()">
       <p>
         <mat-form-field>
-          <input type="text" matInput placeholder="Username" formControlName="username">
+          <input #u1 type="text" matInput placeholder="Username" formControlName="username">
         </mat-form-field>
       </p>
 
       <p>
         <mat-form-field>
-          <input type="password" matInput placeholder="Password" formControlName="password">
+          <input #u2 type="password" matInput placeholder="Password" formControlName="password">
         </mat-form-field>
       </p>
 
@@ -19,7 +19,7 @@
       </p>
 
       <div class="button">
-        <button type="submit" mat-button routerLink='/main'>Login</button>
+        <button type="submit" mat-button routerLink='/main'(click)="logIn(u1.value,u2.value)">Login</button>
         <button type="submit" mat-button routerLink='/register'>Register</button>
       </div>
       

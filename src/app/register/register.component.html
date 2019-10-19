@@ -4,19 +4,19 @@
         <form [formGroup]="form" (ngSubmit)="submit()">
             <p>
                 <mat-form-field>
-                <input type="text" matInput placeholder="Username" formControlName="username">
+                <input #u1 type="text" matInput placeholder="Username" formControlName="username">
                 </mat-form-field>
             </p>
         
             <p>
                 <mat-form-field>
-                <input type="password" matInput placeholder="Password" formControlName="password">
+                <input #u2 type="password" matInput placeholder="Password" formControlName="password">
                 </mat-form-field>
             </p>
 
             <p>
                 <mat-form-field>
-                    <input type="email" matInput placeholder="Email" formControlName="email">
+                    <input #u3 type="email" matInput placeholder="Email" formControlName="email">
                 </mat-form-field>
             </p>
         
@@ -25,7 +25,7 @@
             </p>
         
             <div class="button">
-                <button type="submit" mat-button routerLink='/'>Submit</button>
+                <button type="submit" mat-button routerLink='/' (click)="signUp(u1.value,u2.value,u3.value)">Submit</button>
                 <button type="submit" mat-button routerLink='/'>Cancel</button>
             </div>
           
