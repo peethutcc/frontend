@@ -46,8 +46,8 @@ import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
-import {ErrorStateMatcher} from '@angular/material/core';
 import { RegisterComponent } from './register/register.component';
+import { FileDialogComponent } from './file-dialog/file-dialog.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +65,7 @@ import { RegisterComponent } from './register/register.component';
     MainComponent,
     LoginComponent,
     RegisterComponent,
+    FileDialogComponent,
 
   ],
   imports: [
@@ -97,6 +98,6 @@ import { RegisterComponent } from './register/register.component';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents:[AddDialogComponent,SearchDialogComponent,EditDialogComponent,DeleteDialogComponent],
+  entryComponents:[AddDialogComponent,SearchDialogComponent,EditDialogComponent,DeleteDialogComponent,FileDialogComponent],
 })
 export class AppModule { }

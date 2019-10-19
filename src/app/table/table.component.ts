@@ -6,6 +6,7 @@ import { EditDialogComponent } from '../edit-dialog/edit-dialog.component';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { ParseapiService } from '../parseapi.service';
 import {MatTableDataSource} from '@angular/material/table';
+import { FileDialogComponent } from '../file-dialog/file-dialog.component';
 
 
 @Component({
@@ -14,7 +15,7 @@ import {MatTableDataSource} from '@angular/material/table';
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnInit {
-  displayedColumns: string[] = ['no','titleName', 'docOwner', 'ogManuscript', 'amount','docDate','status','actions'];
+  displayedColumns: string[] = ['no','titleName', 'docOwner', 'ogManuscript', 'amount','docDate','status',"file",'actions'];
   //เรียงข้อมูล
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
@@ -59,6 +60,11 @@ export class TableComponent implements OnInit {
   openDialogDelete(){
     const dialogRef = this.dialog.open(DeleteDialogComponent);
   }
+
+  openDialogFile(){
+    const dialogRef = this.dialog.open(FileDialogComponent, {width: '900px',height:'550px'});
+  }
+
   //data2 = this.tb.getData();
 
  /* getData(){
