@@ -4,13 +4,14 @@ import {MatTableDataSource} from '@angular/material/table';
 import { TableComponent } from './table/table.component';
 import { stringify } from 'querystring';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ParseapiService {
   datare2;
-  constructor(private _snackBar: MatSnackBar) { }
+  constructor(private _snackBar: MatSnackBar,private router: Router) { }
 //เรียกให้มันอินิตตามที่เราตั้งไว้
 init(){
   Parse.serverURL = 'https://parseapi.back4app.com'; // This is your Server URL
@@ -51,6 +52,7 @@ onclickgetdata(v1,v2,v3,v4,v5,v6){
 
   var MyCustomClass = Parse.Object.extend("meta_data");
   var query = new Parse.Query(MyCustomClass);
+
   query.count().then(count => {
     console.log(`ParseObjects found: ${count}`);
 
@@ -132,14 +134,40 @@ delete(){
     });
   });
 
-  }
-  sendid(id){
-this.Obid=id;
+}
+
+//getfiledata
+getFileData(){
+  const My2Class = Parse.Object.extend('file');
+  const query = new Parse.Query(My2Class);
+
+  const meta_data = Parse.Object.extend("meta_data");
+  const mymeta_data = new meta_data();
+  mymeta_data.id = this.Obid.objectId;
+
+  // Just the objectId is enough to compare the object
+  query.equalTo("owner", mymeta_data);
+
+  this.data = query.find().then((results) => {
+    console.log(JSON.parse(JSON.stringify(results)));
+    return results;
+
+  }, (error) => {
+    if (typeof document !== 'undefined') document.write(`Error while fetching My2Class: ${JSON.stringify(error)}`);
+    console.error('Error while fetching My2Class', error);
+  });
+
+  return this.data;
+}
+
+sendid(id){
+  this.Obid=id;
 }
 
 getid(){
   return this.Obid;
 }
+
 //singup
 signUp(u1, u2, u3) {
 
@@ -150,16 +178,19 @@ signUp(u1, u2, u3) {
 
   user.signUp().then(function(user) {
       console.log('User created successful with name: ' + user.get("username") + ' and email: ' + user.get("email"));
+      this.router.navigate('/');
   }).catch(function(error){
       console.log("Error: " + error.code + " " + error.message);
   });
   
 }
+
 //login
 logIn(u1, u2) {
   var user = Parse.User
   .logIn(u1, u2).then(function(user) {
       console.log('User Login successful with name: ' + user.get("username") + ' and email: ' + user.get("email"));
+      this.router.navigate('/main');
 }).catch(function(error){
   console.log("Error: " + error.code + " " + error.message);
 });

@@ -15,7 +15,7 @@ import { FileDialogComponent } from '../file-dialog/file-dialog.component';
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnInit {
-  displayedColumns: string[] = ['no','titleName', 'docOwner', 'ogManuscript', 'amount','docDate','status',"file",'actions'];
+  displayedColumns: string[] = ['no','titleName', 'docOwner', 'ogManuscript', 'amount','docDate','status','actions'];
   //เรียงข้อมูล
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 

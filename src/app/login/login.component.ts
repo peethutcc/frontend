@@ -31,5 +31,6 @@ export class LoginComponent implements OnInit {
 
   logIn(u1,u2){
     this.parse.logIn(u1,u2);
+    
   }
 }
