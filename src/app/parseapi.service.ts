@@ -122,8 +122,8 @@ edit(v1,v2,v3,v4,v5,v6){
 
 //deletedata function
 delete(){
-  const TeachernameClass = Parse.Object.extend('meta_data');
-  const query = new Parse.Query(TeachernameClass);
+  const metadata = Parse.Object.extend('meta_data');
+  const query = new Parse.Query(metadata);
 
   query.get(this.Obid.objectId).then((object) => {
     object.destroy().then((response) => {
@@ -150,6 +150,7 @@ getFileData(){
 
   this.data = query.find().then((results) => {
     console.log(JSON.parse(JSON.stringify(results)));
+
     return results;
 
   }, (error) => {
@@ -158,6 +159,48 @@ getFileData(){
   });
 
   return this.data;
+}
+
+//deletedataandfile
+deletefiledata(){
+  const My2Class = Parse.Object.extend('file');
+  const query = new Parse.Query(My2Class);
+
+  const meta_data = Parse.Object.extend("meta_data");
+  const meta_dataquery = new Parse.Query(meta_data);
+  const mymeta_data = new meta_data();
+  mymeta_data.id = this.Obid.objectId;
+
+  query.equalTo("owner", mymeta_data);
+
+  this.data = query.find().then((results) => {
+    console.log(JSON.parse(JSON.stringify(results)));
+
+    let ndata = JSON.parse(JSON.stringify(results));
+
+    //เรียกฟังชั่นลูปลบไฟล์และข้อมูล
+    this.filede(ndata,query,meta_dataquery);
+
+
+  }, (error) => {
+    if (typeof document !== 'undefined') document.write(`Error while fetching My2Class: ${JSON.stringify(error)}`);
+    console.error('Error while fetching My2Class', error);
+  });
+
+
+}
+//ฟังชั่นลบไฟล์และข้อมูล
+async filede(ndata,query,meta_dataquery){
+  for (let i of ndata) {
+    console.log(i.objectId)
+      //ลูปลบไฟล์
+    let object = await query.get(i.objectId)
+    object.destroy();
+    console.log('Deleted file_data', object)
+  }
+  let metadata = await meta_dataquery.get(this.Obid.objectId)
+    metadata.destroy();
+    console.log('Deleted meta_data', metadata)
 }
 
 sendid(id){

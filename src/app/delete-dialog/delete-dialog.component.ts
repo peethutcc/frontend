@@ -16,7 +16,7 @@ export class DeleteDialogComponent implements OnInit {
     this.id =this.ps.getid();
   }
 deletedata(){
-  this.ps.delete();
+  this.ps.deletefiledata();
 }
 
   /*delete(){
