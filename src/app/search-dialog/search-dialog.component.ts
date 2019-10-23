@@ -9,7 +9,7 @@ import { ParseapiService } from '../parseapi.service';
 })
 export class SearchDialogComponent implements OnInit {
 
-  constructor(public parse:ParseapiService) { 
+  constructor(public parse:ParseapiService,) { 
     parse.init();
   }
 
@@ -17,11 +17,14 @@ export class SearchDialogComponent implements OnInit {
   }
 
   searchDataD(createdAt1,createdAt2,docDate1,docDate2,docOwner,title,amount,status){
-    if (createdAt1 !== ""){
-      console.log(new Date(createdAt1) + docDate1 )
-    }
+
     this.parse.searchData(createdAt1,createdAt2,docDate1,docDate2,docOwner,title,amount,status)
+    this.firstComponentFunction();
   }
 
+  //event mitter 
+  firstComponentFunction(){    
+    this.parse.onFirstComponentButtonClick();    
+  };
 
 }

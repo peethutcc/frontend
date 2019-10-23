@@ -26,6 +26,7 @@ export class AddDialogComponent implements OnInit {
     });
   }
 
+
   /* onclickgetdata(v1,v2,v3,v4,v5){
    
     const TeachernameClass = Parse.Object.extend('tt');

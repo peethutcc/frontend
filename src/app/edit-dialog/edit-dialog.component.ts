@@ -21,8 +21,15 @@ export class EditDialogComponent implements OnInit {
   
   editdata(v1,v2,v3,v4,v5,v6){
     this.ps.edit(v1,v2,v3,v4,v5,v6);
-    
+
+    console.log("this is in edit dialog")
+    this.firstComponentFunction();
   }
+
+  firstComponentFunction(){    
+    this.ps.onFirstComponentButtonClick();    
+  };
+
   /*edit(v1,v2,v3,v4,v5){
   const TeachernameClass = Parse.Object.extend('tt');
   const query = new Parse.Query(TeachernameClass);

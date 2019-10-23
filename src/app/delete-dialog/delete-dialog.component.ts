@@ -17,7 +17,12 @@ export class DeleteDialogComponent implements OnInit {
   }
 deletedata(){
   this.ps.deletefiledata();
+
 }
+
+firstComponentFunction(){    
+  this.ps.onFirstComponentButtonClick();    
+};
 
   /*delete(){
     const TeachernameClass = Parse.Object.extend('Teachername');

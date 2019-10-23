@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import * as Parse from'parse';//อิมพอร์ตparse
 import {MatTableDataSource} from '@angular/material/table';
 import { TableComponent } from './table/table.component';
 import { stringify } from 'querystring';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,13 @@ init(){
     'nVs74U5EW8xEsA3hcUZMtGiO38R3Rb50uksmqJe9' // This is your Master key (never use it in the frontend)
   );
 }
+
+invokeFirstComponentFunction = new EventEmitter();    
+subsVar: Subscription;
+
+onFirstComponentButtonClick() {    
+  this.invokeFirstComponentFunction.emit();    
+} 
 
 //เพิ่มข้อมูล
 /*adddata(){
@@ -54,9 +62,7 @@ onclickgetdata(v1,v2,v3,v4,v5,v6){
   var query = new Parse.Query(MyCustomClass);
 
   query.count().then(count => {
-    console.log(`ParseObjects found: ${count}`);
-
-
+    //console.log(`ParseObjects found: ${count}`);
     teachername.set('no', Number(count+1));
 
     teachername.set('titleName', v1);
@@ -65,13 +71,10 @@ onclickgetdata(v1,v2,v3,v4,v5,v6){
     teachername.set('amount',Number(v5) );
     teachername.set('docDate',new Date(v3));
     teachername.save('status',v6).then((response) => {
-      
+      this.onFirstComponentButtonClick();
      });
     
   });
-  
-  
-
   console.log(JSON.parse(JSON.stringify(teachername)));
   //this.tb.getData(this.value);//ฟังชั้นของ TabledataService
 }
@@ -106,7 +109,7 @@ async getData(){
   const My2Class = Parse.Object.extend('meta_data');
   const query = new Parse.Query(My2Class);
   
-  console.log(this.lcreatedAt1+"this is in get data")
+  //console.log(this.lcreatedAt1+"this is in get data")
   if ((this.lcreatedAt1 !== undefined && this.lcreatedAt1 !== "") && (this.lcreatedAt2 !== undefined && this.lcreatedAt2 !== "")){
     query.greaterThanOrEqualTo("createdAt", new Date(this.lcreatedAt1));
     query.lessThanOrEqualTo("createdAt", new Date(this.lcreatedAt2));
@@ -137,7 +140,7 @@ async getData(){
 
   this.data = await query.find().then((results) => {
     console.log(JSON.parse(JSON.stringify(results)));
-    console.log(results);
+    //console.log(results);
     return results;
 
   }, (error) => {
@@ -221,25 +224,28 @@ deletefiledata(){
   query.equalTo("owner", mymeta_data);
 
   this.data = query.find().then((results) => {
-    console.log(JSON.parse(JSON.stringify(results)));
+    //console.log("this is in deletefile data");
+    //console.log(JSON.parse(JSON.stringify(results)));
 
     let ndata = JSON.parse(JSON.stringify(results));
 
     //เรียกฟังชั่นลูปลบไฟล์และข้อมูล
-    this.filede(ndata,query,meta_dataquery);
-
-
+    this.filede(ndata,query,meta_dataquery).then(()=>{
+      this.onFirstComponentButtonClick();
+    });
+    
+    
   }, (error) => {
     if (typeof document !== 'undefined') document.write(`Error while fetching My2Class: ${JSON.stringify(error)}`);
     console.error('Error while fetching My2Class', error);
   });
-
+  
 
 }
 //ฟังชั่นลบไฟล์และข้อมูล
 async filede(ndata,query,meta_dataquery){
   for (let i of ndata) {
-    console.log(i.objectId)
+    //console.log(i.objectId)
       //ลูปลบไฟล์
     let object = await query.get(i.objectId)
     object.destroy();
@@ -285,6 +291,9 @@ logIn(u1, u2) {
   console.log("Error: " + error.code + " " + error.message);
 });
 }
+
+
+//---
 up(){
   const upfile = Parse.Object.extend('file');
   const myNewObject = new upfile();

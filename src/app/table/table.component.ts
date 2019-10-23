@@ -33,6 +33,14 @@ export class TableComponent implements OnInit {
 
     //รับข้อมูล
     this.getDataall();
+
+    //test evenmitter
+    if (this.ps.subsVar==undefined) {    
+      this.ps.subsVar = this.ps.    
+      invokeFirstComponentFunction.subscribe((name:string) => {    
+        this.getDataall();    
+      });    
+    }
     
   }
 
@@ -62,7 +70,7 @@ export class TableComponent implements OnInit {
   getDataall(){
     this.mailbox=this.ps.getData();
     this.mailbox.then( results => {
-      console.log("sssss");
+      //console.log("sssss");
       console.log(results);
       this.datare2 = JSON.parse(JSON.stringify(results))
       this.datare2 = new MatTableDataSource(this.datare2);
