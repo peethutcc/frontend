@@ -32,6 +32,13 @@ export class FileDialogComponent implements OnInit {
     
   }
 
+  onclicktestdata(row){
+    //this.ps.sendid(row);
+    console.log(row);
+  }
+  upp(){
+    this.ps.up();
+  };
 }
 
 

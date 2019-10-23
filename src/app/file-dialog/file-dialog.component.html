@@ -30,12 +30,14 @@
         
         
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr mat-row (click)="onclicktestdata(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
     </div>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
+    
+    <button type="submit"  (click)="upp()">ENTER</button>
     <button type="submit" mat-button mat-dialog-close >Upload</button>
     <button mat-button mat-dialog-close>Close</button>
 </mat-dialog-actions>

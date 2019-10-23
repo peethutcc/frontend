@@ -285,6 +285,29 @@ logIn(u1, u2) {
   console.log("Error: " + error.code + " " + error.message);
 });
 }
+up(){
+  const upfile = Parse.Object.extend('file');
+  const myNewObject = new upfile();
+ 
+  const meta_data = Parse.Object.extend("meta_data");
+  //const meta_dataquery = new Parse.Query(meta_data);
+  const mymeta_data = new meta_data();
+  mymeta_data.id = this.Obid.objectId;
+
+  myNewObject.set('file', new Parse.File("resume.txt", { base64: btoa("file") }));
+  myNewObject.set('owner',mymeta_data );
+
+  myNewObject.save().then(
+    (result) => {
+      if (typeof document !== 'undefined') document.write(`file created: ${JSON.stringify(result)}`);
+      console.log('file created', result);
+    },
+    (error) => {
+      if (typeof document !== 'undefined') document.write(`Error while creating file: ${JSON.stringify(error)}`);
+      console.error('Error while creating file: ', error);
+    }
+  );
+}
 
 
 }
