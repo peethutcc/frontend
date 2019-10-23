@@ -5,42 +5,46 @@
         
             <h2>วันรับเอกสาร</h2>
         <mat-form-field class="ass">
-            <input matInput [matDatepicker]="picker1" placeholder="วันที่ของเอกสาร">
+            <input #createdAt1  matInput [matDatepicker]="picker1" placeholder="วันที่ของเอกสาร">
             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
             <mat-datepicker #picker1></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field class="ass">
-            <input matInput [matDatepicker]="picker2" placeholder="วันที่ของเอกสาร">
+            <input #createdAt2  matInput [matDatepicker]="picker2" placeholder="วันที่ของเอกสาร">
             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
             <mat-datepicker #picker2></mat-datepicker>
         </mat-form-field>
         <h2>วันที่ของเอกสาร</h2>
             <mat-form-field class="ass">
-                <input matInput [matDatepicker]="picker3" placeholder="วันที่ของเอกสาร">
+                <input #docDate1 matInput [matDatepicker]="picker3" placeholder="วันที่ของเอกสาร" >
                 <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                 <mat-datepicker #picker3></mat-datepicker>
             </mat-form-field>
     
             <mat-form-field class="ass">
-                <input matInput [matDatepicker]="picker4" placeholder="วันที่ของเอกสาร">
+                <input #docDate2  matInput [matDatepicker]="picker4" placeholder="วันที่ของเอกสาร">
                 <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
                 <mat-datepicker #picker4></mat-datepicker>
             </mat-form-field> 
             <h2>รายระเอียดเอกสาร</h2>
             <mat-form-field class="ass">
-                <input matInput placeholder="ผู้เสนอ">
+                <input #docOwner  matInput placeholder="เจ้าของเรื่อง">
             </mat-form-field>
     
             <mat-form-field class="ass">
-                <input matInput placeholder="หัวข้อ">
+                <input #title  matInput placeholder="หัวข้อเรื่อง">
+            </mat-form-field>
+
+            <mat-form-field class="ass">
+                <input #amount  type="number" matInput placeholder="จำนวนเงิน">
             </mat-form-field>
             
             <mat-form-field  >
-                <mat-select placeholder="สถานะ" >
-                    <mat-option value="option">ทั้งหมด</mat-option>
-                    <mat-option value="option">กำลังดำเนินการ</mat-option>
-                    <mat-option value="option">เสร็จ</mat-option>
+                <mat-select #status placeholder="สถานะ" >
+                    <mat-option value="">ทั้งหมด</mat-option>
+                    <mat-option value="กำลังดำเนินการ">กำลังดำเนินการ</mat-option>
+                    <mat-option value="เสร็จ">เสร็จ</mat-option>
                 </mat-select>
             </mat-form-field>    
     </div>
@@ -48,6 +52,6 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-    <button mat-button [mat-dialog-close]="true" >Submit</button>
+    <button type="submit" mat-button mat-dialog-close (click)="searchDataD(createdAt1.value,createdAt2.value,docDate1.value,docDate2.value,docOwner.value,title.value,amount.value,status.value)" >Submit</button>
     <button mat-button mat-dialog-close>Cancel</button>
 </mat-dialog-actions>

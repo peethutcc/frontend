@@ -32,14 +32,8 @@ export class TableComponent implements OnInit {
     //this.data.sort = this.sort;
 
     //รับข้อมูล
-    this.mailbox=this.ps.getData();
-    this.mailbox.then( results => {
-      console.log("sssss");
-      console.log(results);
-      this.datare2 = JSON.parse(JSON.stringify(results))
-      this.datare2 = new MatTableDataSource(this.datare2);
-      this.datare2.sort = this.sort;
-    })
+    this.getDataall();
+    
   }
 
   //เรียกเซอร์วิส TabledataService มาแล้วใช้ฟังชั่น sendData() ในเซอรืวิส
@@ -63,6 +57,17 @@ export class TableComponent implements OnInit {
 
   openDialogFile(){
     const dialogRef = this.dialog.open(FileDialogComponent, {width: '900px',height:'550px'});
+  }
+
+  getDataall(){
+    this.mailbox=this.ps.getData();
+    this.mailbox.then( results => {
+      console.log("sssss");
+      console.log(results);
+      this.datare2 = JSON.parse(JSON.stringify(results))
+      this.datare2 = new MatTableDataSource(this.datare2);
+      this.datare2.sort = this.sort;
+    })
   }
 
   //data2 = this.tb.getData();

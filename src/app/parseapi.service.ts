@@ -80,17 +80,64 @@ data;
 query(){
 
 }
+lcreatedAt1;
+lcreatedAt2;
+ldocDate1;
+ldocDate2;
+ldocOwner;
+ltitle;
+lamount;
+lstatus;
+//ฟั่งชั่นรับค่าค้นหา
+searchData(createdAt1,createdAt2,docDate1,docDate2,docOwner,title,amount,status){
+  this.lcreatedAt1 = createdAt1
+  this.lcreatedAt2 = createdAt2
+  this.ldocDate1 = docDate1
+  this.ldocDate2 = docDate2
+  this.ldocOwner = docOwner
+  this.ltitle = title
+  this.lamount = amount
+  this.lstatus = status
+  console.log(this.lcreatedAt1)
+}
+
 //showdata function
-getData(){
+async getData(){
   const My2Class = Parse.Object.extend('meta_data');
   const query = new Parse.Query(My2Class);
-
+  
+  console.log(this.lcreatedAt1+"this is in get data")
+  if ((this.lcreatedAt1 !== undefined && this.lcreatedAt1 !== "") && (this.lcreatedAt2 !== undefined && this.lcreatedAt2 !== "")){
+    query.greaterThanOrEqualTo("createdAt", new Date(this.lcreatedAt1));
+    query.lessThanOrEqualTo("createdAt", new Date(this.lcreatedAt2));
+  }
+  if ((this.ldocDate1 !== undefined && this.ldocDate1 !== "") && (this.ldocDate2 !== undefined && this.ldocDate2 !== "")){
+    query.greaterThanOrEqualTo("docDate", new Date(this.ldocDate1));
+    query.lessThanOrEqualTo("docDate", new Date(this.ldocDate2));
+  }
+  if (this.ldocOwner !== undefined && this.ldocOwner !== ""){
+    console.log(this.ldocOwner+"this is in docOwner if")
+    query.equalTo("docOwner", this.ldocOwner);
+  }
+  if (this.ltitle !== undefined && this.ltitle !== ""){
+    query.equalTo("titleName", this.ltitle);
+  }
+  if (this.lamount !== undefined && this.lamount !== ""){
+    query.equalTo("amount", Number(this.lamount));
+  }
+  if (this.lstatus !== undefined && this.lstatus !== ""){
+    query.equalTo("status", this.lstatus);
+  }else{
+    query.descending("createdAt");
+    query.limit(20);
+  }
   //query.descending("createdAt");
-  //query.equalTo("docDate","")
+  //query.equalTo("docOwner","Jaa")
   //query.greaterThan("docDate",new Date("2019-10-5"))
 
-  this.data = query.find().then((results) => {
+  this.data = await query.find().then((results) => {
     console.log(JSON.parse(JSON.stringify(results)));
+    console.log(results);
     return results;
 
   }, (error) => {
@@ -137,7 +184,7 @@ delete(){
 }
 
 //getfiledata
-getFileData(){
+async getFileData(){
   const My2Class = Parse.Object.extend('file');
   const query = new Parse.Query(My2Class);
 
@@ -148,7 +195,7 @@ getFileData(){
   // Just the objectId is enough to compare the object
   query.equalTo("owner", mymeta_data);
 
-  this.data = query.find().then((results) => {
+  this.data = await query.find().then((results) => {
     console.log(JSON.parse(JSON.stringify(results)));
 
     return results;
