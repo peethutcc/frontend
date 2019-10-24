@@ -297,7 +297,7 @@ logIn(u1, u2) {
 }
 
 
-//---
+//uploadfile
 upload(myfile){
   
   const upfile = Parse.Object.extend('file');
