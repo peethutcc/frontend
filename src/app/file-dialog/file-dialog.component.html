@@ -37,7 +37,7 @@
 
 <mat-dialog-actions align="end">
     
-    <button type="submit" mat-button (click)="upp()">ENTER</button>
-    <button type="submit" mat-button mat-dialog-close >Upload</button>
+    <input type="file" name="image" (change)="fileProgress($event)" />
+    <button type="submit" (click)="callupload()" mat-button mat-dialog-close >Upload</button>
     <button mat-button mat-dialog-close>Close</button>
 </mat-dialog-actions>

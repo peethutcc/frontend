@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpEventType } from '@angular/common/http';
-
+import { ParseapiService } from '../parseapi.service';
 
 
 @Component({
@@ -15,7 +15,9 @@ export class UploadComponent implements OnInit {
   fileUploadProgress: string = null;
   uploadedFilePath: string = null;
  
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,public ps: ParseapiService) { 
+    ps.init();
+  }
 
   ngOnInit() {
   }
@@ -26,6 +28,7 @@ export class UploadComponent implements OnInit {
  
 fileProgress(fileInput: any) {
       this.fileData = <File>fileInput.target.files[0];
+      console.log(this.fileData);
       this.preview();
 }
  
@@ -49,7 +52,7 @@ onSubmit() {
    
   this.fileUploadProgress = '0%';
 
-  this.http.post('https://parse-dashboard.back4app.com/apps/5e254611-7c9b-49c7-b9b3-c4897316be3b/browser/file', formData, {
+  this.http.post('https://parseapi.back4app.com/classes/file', formData, {
     reportProgress: true,
     observe: 'events'   
   })

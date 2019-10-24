@@ -48,7 +48,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { RegisterComponent } from './register/register.component';
 import { FileDialogComponent } from './file-dialog/file-dialog.component';
-
+import { UploadComponent } from './upload/upload.component';
+	
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,6 +68,7 @@ import { FileDialogComponent } from './file-dialog/file-dialog.component';
     LoginComponent,
     RegisterComponent,
     FileDialogComponent,
+    UploadComponent
 
   ],
   imports: [
@@ -94,6 +97,7 @@ import { FileDialogComponent } from './file-dialog/file-dialog.component';
     MatNativeDateModule,
     ReactiveFormsModule,
     MatSnackBarModule,
+    HttpClientModule
     
   ],
   providers: [],

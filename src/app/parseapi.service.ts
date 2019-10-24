@@ -12,14 +12,18 @@ import { Subscription } from 'rxjs';
 })
 export class ParseapiService {
   datare2;
-  constructor(private _snackBar: MatSnackBar,private router: Router) { }
+  
+  constructor(private _snackBar: MatSnackBar,private router: Router) { 
+    
+  }
 //เรียกให้มันอินิตตามที่เราตั้งไว้
 init(){
   Parse.serverURL = 'https://parseapi.back4app.com'; // This is your Server URL
   Parse.initialize(
     '5edaoITqUp7S45cXm8KTny8Nml7KRey9pl89rsmP', // This is your Application ID
     'cJ5ZW7dr3ZaQFfsxrQPq4CKAX4RybkYvf0yho5MX', // This is your Javascript key
-    'nVs74U5EW8xEsA3hcUZMtGiO38R3Rb50uksmqJe9' // This is your Master key (never use it in the frontend)
+    'nVs74U5EW8xEsA3hcUZMtGiO38R3Rb50uksmqJe9', // This is your Master key (never use it in the frontend)
+    '9e6d52ef-10ec-4bcf-85d9-306aeec29a80',
   );
 }
 
@@ -294,7 +298,8 @@ logIn(u1, u2) {
 
 
 //---
-up(){
+upload(myfile){
+  
   const upfile = Parse.Object.extend('file');
   const myNewObject = new upfile();
  
@@ -302,20 +307,12 @@ up(){
   //const meta_dataquery = new Parse.Query(meta_data);
   const mymeta_data = new meta_data();
   mymeta_data.id = this.Obid.objectId;
-
-  myNewObject.set('file', new Parse.File("resume.txt", { base64: btoa("file") }));
+  console.log(myfile)
+  myNewObject.set('file', new Parse.File(myfile.name,  myfile));
   myNewObject.set('owner',mymeta_data );
 
-  myNewObject.save().then(
-    (result) => {
-      if (typeof document !== 'undefined') document.write(`file created: ${JSON.stringify(result)}`);
-      console.log('file created', result);
-    },
-    (error) => {
-      if (typeof document !== 'undefined') document.write(`Error while creating file: ${JSON.stringify(error)}`);
-      console.error('Error while creating file: ', error);
-    }
-  );
+  myNewObject.save()
+  
 }
 
 
