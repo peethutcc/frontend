@@ -15,7 +15,7 @@ import { FileDialogComponent } from '../file-dialog/file-dialog.component';
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnInit {
-  displayedColumns: string[] = ['no','titleName', 'docOwner', 'ogManuscript', 'amount','docDate','status','actions'];
+  displayedColumns: string[] = ['no','titleName', 'docOwner', 'ogManuscript','docDate','status','comment','actions'];
   //เรียงข้อมูล
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
@@ -38,10 +38,9 @@ export class TableComponent implements OnInit {
     if (this.ps.subsVar==undefined) {    
       this.ps.subsVar = this.ps.    
       invokeFirstComponentFunction.subscribe((name:string) => {    
-        this.getDataall();    
+        this.ngOnInit();    
       });    
     }
-    
   }
 
   //เรียกเซอร์วิส TabledataService มาแล้วใช้ฟังชั่น sendData() ในเซอรืวิส
@@ -71,7 +70,7 @@ export class TableComponent implements OnInit {
     this.mailbox=this.ps.getData();
     this.mailbox.then( results => {
       //console.log("sssss");
-      console.log(results);
+      //console.log(results);
       this.datare2 = JSON.parse(JSON.stringify(results))
       this.datare2 = new MatTableDataSource(this.datare2);
       this.datare2.sort = this.sort;

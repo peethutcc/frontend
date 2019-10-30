@@ -37,7 +37,7 @@
             </mat-form-field>
 
             <mat-form-field class="ass">
-                <input #amount  type="number" matInput placeholder="จำนวนเงิน">
+                <input #comment   matInput placeholder="หมายเหตุ">
             </mat-form-field>
             
             <mat-form-field  >
@@ -52,6 +52,6 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-    <button type="submit" mat-button mat-dialog-close (click)="searchDataD(createdAt1.value,createdAt2.value,docDate1.value,docDate2.value,docOwner.value,title.value,amount.value,status.value)" >Submit</button>
+    <button type="submit" mat-button mat-dialog-close (click)="searchDataD(createdAt1.value,createdAt2.value,docDate1.value,docDate2.value,docOwner.value,title.value,comment.value,status.value)" >Submit</button>
     <button mat-button mat-dialog-close>Cancel</button>
 </mat-dialog-actions>

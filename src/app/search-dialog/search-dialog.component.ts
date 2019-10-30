@@ -16,9 +16,9 @@ export class SearchDialogComponent implements OnInit {
   ngOnInit() {
   }
 
-  searchDataD(createdAt1,createdAt2,docDate1,docDate2,docOwner,title,amount,status){
+  searchDataD(createdAt1,createdAt2,docDate1,docDate2,docOwner,title,comment,status){
 
-    this.parse.searchData(createdAt1,createdAt2,docDate1,docDate2,docOwner,title,amount,status)
+    this.parse.searchData(createdAt1,createdAt2,docDate1,docDate2,docOwner,title,comment,status)
     this.firstComponentFunction();
   }
 

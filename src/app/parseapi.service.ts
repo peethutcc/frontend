@@ -57,29 +57,45 @@ export class ParseapiService {
 
 
   //aaddata function
-  onclickgetdata(v1,v2,v3,v4,v5,v6){
+  async onclickgetdata(title,docowner,docdate,comment){
     
-    const TeachernameClass = Parse.Object.extend('meta_data');
-    const teachername = new TeachernameClass();
+    const meta_dataClass = Parse.Object.extend('meta_data');
+    const meta_data = new meta_dataClass();
 
     var MyCustomClass = Parse.Object.extend("meta_data");
     var query = new Parse.Query(MyCustomClass);
 
-    query.count().then(count => {
-      //console.log(`ParseObjects found: ${count}`);
-      teachername.set('no', Number(count+1));
 
-      teachername.set('titleName', v1);
-      teachername.set('docOwner',v2 );
-      teachername.set('ogManuscript',v4 );
-      teachername.set('amount',Number(v5) );
-      teachername.set('docDate',new Date(v3));
-      teachername.save('status',v6).then((response) => {
-        this.onFirstComponentButtonClick();
+    await query.count().then(count => {
+      console.log("this is in add data");
+      console.log(count);
+
+      query.descending("createdAt");
+      query.limit(1);
+      query.find().then(results=>{
+
+        if(count == 0 ){
+          console.log("this is in count if == 0");
+          meta_data.set('no', Number(1));
+        }else{
+          console.log("this is in else");
+          let number = results[0].get("no");
+          meta_data.set('no', Number(number+1));
+        }
+
+        meta_data.set('titleName', title);
+        meta_data.set('docOwner',docowner );
+        meta_data.set('docDate',new Date(docdate));
+        meta_data.set('ogManuscript',"" );
+        meta_data.save('comment',comment).then((response) => {
+          this.onFirstComponentButtonClick();
+        });
+
       });
-      
+
     });
-    console.log(JSON.parse(JSON.stringify(teachername)));
+    
+    //console.log(JSON.parse(JSON.stringify(teachername)));
     //this.tb.getData(this.value);//ฟังชั้นของ TabledataService
   }
   data;
@@ -93,17 +109,17 @@ export class ParseapiService {
   ldocDate2;
   ldocOwner;
   ltitle;
-  lamount;
+  lcomment;
   lstatus;
   //ฟั่งชั่นรับค่าค้นหา
-  searchData(createdAt1,createdAt2,docDate1,docDate2,docOwner,title,amount,status){
+  searchData(createdAt1,createdAt2,docDate1,docDate2,docOwner,title,comment,status){
     this.lcreatedAt1 = createdAt1
     this.lcreatedAt2 = createdAt2
     this.ldocDate1 = docDate1
     this.ldocDate2 = docDate2
     this.ldocOwner = docOwner
     this.ltitle = title
-    this.lamount = amount
+    this.lcomment = comment
     this.lstatus = status
     console.log(this.lcreatedAt1)
   }
@@ -124,16 +140,16 @@ export class ParseapiService {
     }
     if (this.ldocOwner !== undefined && this.ldocOwner !== ""){
       console.log(this.ldocOwner+"this is in docOwner if")
-      query.equalTo("docOwner", this.ldocOwner);
+      query.startsWith("docOwner", this.ldocOwner);
     }
     if (this.ltitle !== undefined && this.ltitle !== ""){
-      query.equalTo("titleName", this.ltitle);
+      query.startsWith("titleName", this.ltitle);
     }
-    if (this.lamount !== undefined && this.lamount !== ""){
-      query.equalTo("amount", Number(this.lamount));
+    if (this.lcomment !== undefined && this.lcomment !== ""){
+      query.startsWith("comment", this.lcomment);
     }
     if (this.lstatus !== undefined && this.lstatus !== ""){
-      query.equalTo("status", this.lstatus);
+      query.startsWith("status", this.lstatus);
     }else{
       query.descending("createdAt");
       query.limit(20);
@@ -157,19 +173,22 @@ export class ParseapiService {
 
 
   //editdata function
-  edit(v1,v2,v3,v4,v5,v6){
+  edit(titleName,docOwner,docDate,ogManuscript,status,comment){
     const TeachernameClass = Parse.Object.extend('meta_data');
     const query = new Parse.Query(TeachernameClass);
     
     query.get(this.Obid.objectId).then((teachername) => {
 
-      teachername.set('titleName', v1);
-      teachername.set('docOwner',v2 );
-      teachername.set('ogManuscript',v4 );
-      teachername.set('amount',Number(v5) );
-      teachername.set('docDate',new Date(v3));
-      teachername.set('status',v6);
-      teachername.save().then((response) => {
+      teachername.set('titleName', titleName);
+      teachername.set('docOwner',docOwner );
+      teachername.set('ogManuscript',ogManuscript );
+      //teachername.set('amount',Number(v5) );
+      teachername.set('docDate',new Date(docDate));
+      teachername.set('status',status);
+      teachername.save('comment',comment).then((response) => {
+        //this.invokeFirstComponentFunction.emit(); 
+        console.log('this is in edit then');
+        this.onFirstComponentButtonClick()
       });
     });
   }
@@ -217,7 +236,7 @@ export class ParseapiService {
   }
 
   //deletedataandfile
-  deletefiledata(){
+  async deletefiledata(){
     const My2Class = Parse.Object.extend('file');
     const query = new Parse.Query(My2Class);
 
@@ -228,7 +247,7 @@ export class ParseapiService {
 
     query.equalTo("owner", mymeta_data);
 
-    this.data = query.find().then((results) => {
+    this.data = await query.find().then((results) => {
       //console.log("this is in deletefile data");
       //console.log(JSON.parse(JSON.stringify(results)));
 
@@ -236,7 +255,7 @@ export class ParseapiService {
 
       //เรียกฟังชั่นลูปลบไฟล์และข้อมูล
       this.filede(ndata,query,meta_dataquery).then(()=>{
-        this.onFirstComponentButtonClick();
+        //this.onFirstComponentButtonClick();
       });
       
       
@@ -244,7 +263,7 @@ export class ParseapiService {
       if (typeof document !== 'undefined') document.write(`Error while fetching My2Class: ${JSON.stringify(error)}`);
       console.error('Error while fetching My2Class', error);
     });
-    
+    //this.onFirstComponentButtonClick();
 
   }
   //ฟังชั่นลบไฟล์และข้อมูล
@@ -259,6 +278,7 @@ export class ParseapiService {
     let metadata = await meta_dataquery.get(this.Obid.objectId)
       metadata.destroy();
       console.log('Deleted meta_data', metadata)
+      this.onFirstComponentButtonClick();
   }
 
   sendid(id){

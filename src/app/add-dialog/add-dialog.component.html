@@ -2,19 +2,25 @@
 <mat-dialog-content >
     <div class="example-container">
         <mat-form-field>
-            <textarea #v1 matInput placeholder="หัวข้อเรื่อง" required></textarea>
+            <textarea #title matInput placeholder="หัวข้อเรื่อง" required></textarea>
         </mat-form-field>
               
         <mat-form-field>
-            <input #v2 matInput placeholder="เจ้าของเรื่อง">
+            <input #docowner matInput placeholder="เจ้าของเรื่อง">
         </mat-form-field>
 
         <mat-form-field >
-            <input #v3  matInput [matDatepicker]="picker" placeholder="วันที่ของเอกสาร">
+            <input #docdate  matInput [matDatepicker]="picker" placeholder="วันที่ของเอกสาร">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
 
+        <mat-form-field>
+            <textarea #comment maxlength="256" matInput placeholder="หมายเหตุ" required></textarea>
+            <mat-hint align="end">{{comment.value.length}} / 256</mat-hint>
+        </mat-form-field>
+
+        <!-- 
         <mat-form-field>
             <input #v4 matInput placeholder="ต้นฉบับ">
         </mat-form-field>
@@ -28,13 +34,14 @@
                 <mat-option value="กำลังดำเนินการ">กำลังดำเนินการ</mat-option>
                 <mat-option value="เสร็จ">เสร็จ</mat-option>
             </mat-select>
-        </mat-form-field>
+        </mat-form-field> 
+        -->
         
     </div>
     
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-    <button type="submit" mat-flat-button mat-dialog-close (click)=" adddata(v1.value,v2.value,v3.value,v4.value,v5.value,v6.value)">ENTER</button>
+    <button type="submit" mat-flat-button mat-dialog-close (click)=" adddata(title.value,docowner.value,docdate.value,comment.value)">ENTER</button>
     <button mat-button mat-dialog-close>Cancel</button>
 </mat-dialog-actions>
