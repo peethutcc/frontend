@@ -7,6 +7,8 @@ import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component'
 import { ParseapiService } from '../parseapi.service';
 import {MatTableDataSource} from '@angular/material/table';
 import { FileDialogComponent } from '../file-dialog/file-dialog.component';
+import { MatTable } from '@angular/material';
+import {SelectionModel} from '@angular/cdk/collections';
 
 
 @Component({
@@ -15,7 +17,7 @@ import { FileDialogComponent } from '../file-dialog/file-dialog.component';
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnInit {
-  displayedColumns: string[] = ['no','titleName', 'docOwner', 'ogManuscript','docDate','status','comment','actions'];
+  displayedColumns: string[] = ['select','no','titleName', 'docOwner', 'ogManuscript','docDate','status','comment','actions'];
   //เรียงข้อมูล
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
@@ -28,6 +30,7 @@ export class TableComponent implements OnInit {
    }
 
   ngOnInit() {
+    
     //ไว้เรียงข้อมูล
     //this.data.sort = this.sort;
 
@@ -74,34 +77,50 @@ export class TableComponent implements OnInit {
       this.datare2 = JSON.parse(JSON.stringify(results))
       this.datare2 = new MatTableDataSource(this.datare2);
       this.datare2.sort = this.sort;
+
+      //this.table.renderRows();
     })
   }
 
-  //data2 = this.tb.getData();
-
- /* getData(){
-    const My2Class = Parse.Object.extend('tt');
-    const query = new Parse.Query(My2Class);
-
-    query.descending("createdAt");
-    
-    query.find().then((results) => {
-      // You can use the "get" method to get the value of an attribute
-      // Ex: response.get("<ATTRIBUTE_NAME>")
-      //console.log('My2Class found', results);
-      //console.log(JSON.parse(JSON.stringify(results)));
-      //console.log('My2Class found', this.datare);
-      console.log(JSON.parse(JSON.stringify(results)));
-      this.datare2 = new MatTableDataSource(JSON.parse(JSON.stringify(results)));
-    }, (error) => {
-      if (typeof document !== 'undefined') document.write(`Error while fetching My2Class: ${JSON.stringify(error)}`);
-      console.error('Error while fetching My2Class', error);
-    });
-  }*/
-  onclicktestdata(row){
-    this.ps.sendid(row);
-    console.log(row);
+  onclicktestdata(fromtable){
+    this.ps.sendid(fromtable);
+    console.log(fromtable);
+    //this.sendselectedrow();
+    //console.log(this.selection._selected);
   }
-  
+
+  // selection------------
+  //ไว้เลือก selection
+  selection = new SelectionModel<any>(true, []);
+
+/** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.datare2.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+        this.selection.clear() :
+        this.datare2.data.forEach(row => this.selection.select(row));
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: any): string {
+    if (!row) {
+      this.sendselectedrow();
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    }
+    this.sendselectedrow();
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+    
+  }
+  /////----------------
+
+  sendselectedrow(){
+    this.ps.getselectedrowfromtable(this.selection._selected);
+  }
 }
 

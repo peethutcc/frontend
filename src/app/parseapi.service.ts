@@ -6,6 +6,8 @@ import { stringify } from 'querystring';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import * as FileSaver from 'file-saver';
+import * as XLSX from 'xlsx';
 
 @Injectable({
   providedIn: 'root'
@@ -20,12 +22,9 @@ export class ParseapiService {
   init(){
     Parse.serverURL = 'https://parseapi.back4app.com'; // This is your Server URL
     Parse.initialize(
-      '5edaoITqUp7S45cXm8KTny8Nml7KRey9pl89rsmP', // This is your Application ID
-      'cJ5ZW7dr3ZaQFfsxrQPq4CKAX4RybkYvf0yho5MX', // This is your Javascript key
-      'nVs74U5EW8xEsA3hcUZMtGiO38R3Rb50uksmqJe9', // This is your Master key (never use it in the frontend)
-      '9e6d52ef-10ec-4bcf-85d9-306aeec29a80',
-    );
-  }
+      'ok5zCOkoYzbYRIH67sJ94ijRBovEWWYnA3XQj8ob', // This is your Application ID
+      '9WzuuI0ms4LBMk21WvgeFuMIXUQn2mBbpISdtyUI' // This is your Javascript key
+  )}
 
   invokeFirstComponentFunction = new EventEmitter();    
   subsVar: Subscription;
@@ -89,6 +88,9 @@ export class ParseapiService {
         meta_data.set('ogManuscript',"" );
         meta_data.save('comment',comment).then((response) => {
           this.onFirstComponentButtonClick();
+          this._snackBar.open('เพิ่มข้อมูล', 'สำเร็จ', {
+            duration: 2000,
+          });
         });
 
       });
@@ -121,7 +123,6 @@ export class ParseapiService {
     this.ltitle = title
     this.lcomment = comment
     this.lstatus = status
-    console.log(this.lcreatedAt1)
   }
 
   //showdata function
@@ -189,6 +190,9 @@ export class ParseapiService {
         //this.invokeFirstComponentFunction.emit(); 
         console.log('this is in edit then');
         this.onFirstComponentButtonClick()
+        this._snackBar.open('แก้ไข', 'สำเร็จ', {
+          duration: 2000,
+        });
       });
     });
   }
@@ -200,7 +204,10 @@ export class ParseapiService {
 
     await query.get(obId).then((object) => {
       object.destroy().then((response) => {
-        this.invokeSecondComponentFunction.emit();
+        this.onSecondComponentButtonClick(); 
+      this._snackBar.open('ลบไฟล์', 'สำเร็จ', {
+        duration: 2000,
+      });
         console.log('Deleted ParseObject', response);
       }, (error) => {
         if (typeof document !== 'undefined') document.write(`Error while deleting ParseObject: ${JSON.stringify(error)}`);
@@ -255,7 +262,10 @@ export class ParseapiService {
 
       //เรียกฟังชั่นลูปลบไฟล์และข้อมูล
       this.filede(ndata,query,meta_dataquery).then(()=>{
-        //this.onFirstComponentButtonClick();
+        this.onFirstComponentButtonClick();
+        this._snackBar.open('ลบข้อมูล', 'สำเร็จ', {
+          duration: 2000,
+        });
       });
       
       
@@ -333,7 +343,10 @@ export class ParseapiService {
     myNewObject.set('owner',mymeta_data );
 
     await myNewObject.save().then((ob) =>{
-      this.invokeSecondComponentFunction.emit(); 
+      this.onSecondComponentButtonClick(); 
+      this._snackBar.open('อัพโหลดไฟล์', 'สำเร็จ', {
+        duration: 2000,
+      });
     });
     
   }
@@ -346,4 +359,44 @@ export class ParseapiService {
   } 
 
 
+
+  getAutoCompleteDocOwner(){
+    //var MyCustomClass = Parse.Object.extend("meta_data");
+    const query = new Parse.Query("meta_data");
+
+    // Returns unique emails
+    query.distinct("docOwner").then(results => {
+      console.log(`Unique emails: ${JSON.stringify(results)}`);
+    });
+  }
+
+
+  //--------------export to excel function--------------
+
+  public exportAsExcelFile(json: any[], excelFileName: string): void {
+    
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
+    console.log('worksheet',worksheet);
+    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    //const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' });
+    this.saveAsExcelFile(excelBuffer, excelFileName);
+  }
+
+  private saveAsExcelFile(buffer: any, fileName: string): void {
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+  }
+  row;
+  getselectedrowfromtable(selectedrow){
+    this.row = selectedrow;
+  }
+  sendselectedrowfromservice(){
+    return this.row;
+  }
+  //--------------------------------------------------------
 }
+const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+const EXCEL_EXTENSION = '.xlsx';

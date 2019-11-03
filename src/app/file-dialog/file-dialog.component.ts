@@ -40,8 +40,8 @@ export class FileDialogComponent implements OnInit {
    // var fs=require('fs')
     this.fileData = <File>fileInput.target.files[0];
     //let myfile = fs.readFileSync(this.fileData).toString('base64')
-    console.log(event);   
-    console.log(this.fileData.name);
+    console.log(fileInput);   
+    //console.log(this.fileData.name);
     //this.ps.up(this.fileData); 
     //console.log(this.fileData.name);
 }

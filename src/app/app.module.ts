@@ -51,6 +51,8 @@ import { FileDialogComponent } from './file-dialog/file-dialog.component';
 import { UploadComponent } from './upload/upload.component';
 	
 import { HttpClientModule } from '@angular/common/http';
+
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 @NgModule({
   declarations: [
     AppComponent,
@@ -97,7 +99,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatNativeDateModule,
     ReactiveFormsModule,
     MatSnackBarModule,
-    HttpClientModule
+    HttpClientModule,
+    MatAutocompleteModule,
     
   ],
   providers: [],

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ParseapiService } from '../parseapi.service';
-import * as Parse from'parse';
-import { deepStrictEqual } from 'assert';
 import {MatSnackBar} from '@angular/material/snack-bar';
+
+import {FormControl} from '@angular/forms';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 
 
 @Component({
@@ -11,19 +13,40 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   styleUrls: ['./add-dialog.component.css']
 })
 export class AddDialogComponent implements OnInit {
- 
+
   constructor(public parse:ParseapiService,private _snackBar: MatSnackBar) {
     parse.init();
    }
 
+  //ทำ AutoCompete
+  myControl = new FormControl();
+  options = ['One', 'Two', 'Three'];
+  filteredOptions: Observable<string[]>;
+ //--
+
   ngOnInit() {
+    //this.parse.getAutoCompleteDocOwner();
+
+    //--ทำ AutoCompete
+    this.filteredOptions = this.myControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
+    //--
+
   }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  }
+
 
  adddata(title,docowner,docdate,comment){
     this.parse.onclickgetdata(title,docowner,docdate,comment);
-    this._snackBar.open('Success', 'Refesh', {
-      duration: 2000,
-    });
+    
   }
 
   

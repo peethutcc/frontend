@@ -12,12 +12,15 @@ import { ParseapiService } from '../parseapi.service';
 })
 export class headcomponent implements OnInit {
 
-constructor(public dialog: MatDialog,private _bottomSheet: MatBottomSheet,parse:ParseapiService) {
-  parse.init();
+constructor(public dialog: MatDialog,
+  private _bottomSheet: MatBottomSheet,
+  public ps:ParseapiService) {
+  ps.init();
 }
-
+data;
 
     ngOnInit() {
+      
     }
 
     openDialogAdd(){
@@ -27,7 +30,15 @@ constructor(public dialog: MatDialog,private _bottomSheet: MatBottomSheet,parse:
     openDialogSearch(){
       const dialogRef = this.dialog.open(SearchDialogComponent);
     }
+    
+    getdatafromtable(){
+      this.data = this.ps.sendselectedrowfromservice();
+      this.exportAsXLSX();
+    }
 
+    exportAsXLSX():void {
+      this.ps.exportAsExcelFile(this.data, 'sample');
+    }
     
 }
 
