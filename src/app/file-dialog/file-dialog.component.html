@@ -32,6 +32,10 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
+        <div *ngIf="progress > 0" div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width.%]="progress">
+                <progress-bar [progress]="progress" [color]="'#488aff'">
+                </progress-bar>
+        </div>
     <input type="file" name="image" (change)="fileProgress($event)" />
     <button type="submit" (click)="callupload()" mat-button >Upload</button>
     <button mat-button mat-dialog-close>Close</button>

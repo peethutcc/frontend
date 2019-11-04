@@ -53,6 +53,8 @@ import { UploadComponent } from './upload/upload.component';
 import { HttpClientModule } from '@angular/common/http';
 
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {ProgressBarModule} from "angular-progress-bar"
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,7 +72,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     LoginComponent,
     RegisterComponent,
     FileDialogComponent,
-    UploadComponent
+    UploadComponent,
+    
 
   ],
   imports: [
@@ -101,6 +104,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatSnackBarModule,
     HttpClientModule,
     MatAutocompleteModule,
+    ProgressBarModule
     
   ],
   providers: [],

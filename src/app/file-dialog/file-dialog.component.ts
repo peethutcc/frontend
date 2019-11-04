@@ -22,7 +22,7 @@ export class FileDialogComponent implements OnInit {
   datare2;
   mailbox;
   fileData: File = null;
-  
+  progress:number=0;
   ngOnInit() {
 
     //รับข้อมูล
@@ -55,6 +55,16 @@ obid;
   //เรียกฟังชั่นupload
   callupload(){
     this.ps.upload(this.fileData);
+    //uploadbar
+    this.progress = Math.round(this.fileData.size /this.fileData.size * 100);
+         
+          console.log(`Uploaded! ${this.progress}%`);
+        
+        console.log('file created', this.progress);
+        setTimeout(() => {
+          this.progress = 0;
+        }, 1000);
+
   };
 
 
