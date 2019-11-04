@@ -120,7 +120,7 @@ export class TableComponent implements OnInit {
   /////----------------
 
   sendselectedrow(){
-    this.ps.getselectedrowfromtable(this.selection._selected);
+    this.ps.getselectedrowfromtable(this.selection.selected);
   }
 }
 

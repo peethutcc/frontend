@@ -203,11 +203,12 @@ export class ParseapiService {
     const query = new Parse.Query(metadata);
 
     await query.get(obId).then((object) => {
-      object.destroy().then((response) => {
+      object.destroy().then(async (response) => {
+        await this.delay(500);
         this.onSecondComponentButtonClick(); 
-      this._snackBar.open('ลบไฟล์', 'สำเร็จ', {
-        duration: 2000,
-      });
+        this._snackBar.open('ลบไฟล์', 'สำเร็จ', {
+          duration: 2000,
+        });
         console.log('Deleted ParseObject', response);
       }, (error) => {
         if (typeof document !== 'undefined') document.write(`Error while deleting ParseObject: ${JSON.stringify(error)}`);
@@ -261,7 +262,8 @@ export class ParseapiService {
       let ndata = JSON.parse(JSON.stringify(results));
 
       //เรียกฟังชั่นลูปลบไฟล์และข้อมูล
-      this.filede(ndata,query,meta_dataquery).then(()=>{
+      this.filede(ndata,query,meta_dataquery).then(async ()=>{
+        await this.delay(1000);
         this.onFirstComponentButtonClick();
         this._snackBar.open('ลบข้อมูล', 'สำเร็จ', {
           duration: 2000,
@@ -342,7 +344,8 @@ export class ParseapiService {
     myNewObject.set('file', new Parse.File(myfile.name,  myfile));
     myNewObject.set('owner',mymeta_data );
 
-    await myNewObject.save().then((ob) =>{
+    await myNewObject.save().then(async (ob) =>{
+      await this.delay(500);
       this.onSecondComponentButtonClick(); 
       this._snackBar.open('อัพโหลดไฟล์', 'สำเร็จ', {
         duration: 2000,
@@ -397,6 +400,11 @@ export class ParseapiService {
     return this.row;
   }
   //--------------------------------------------------------
+
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+}
+
 }
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';

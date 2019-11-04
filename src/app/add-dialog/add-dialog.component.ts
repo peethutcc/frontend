@@ -27,21 +27,22 @@ export class AddDialogComponent implements OnInit {
   ngOnInit() {
     //this.parse.getAutoCompleteDocOwner();
 
-    //--ทำ AutoCompete
+    //--ทำ AutoCompete-------------------------------
     this.filteredOptions = this.myControl.valueChanges
       .pipe(
         startWith(''),
         map(value => this._filter(value))
       );
-    //--
+    //---------------------------------------------
 
   }
-
+  //--ทำ AutoCompete----------------------------------
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
+  //----------------------------------------------
 
 
  adddata(title,docowner,docdate,comment){
@@ -49,21 +50,4 @@ export class AddDialogComponent implements OnInit {
     
   }
 
-  
-
-
-  /* onclickgetdata(v1,v2,v3,v4,v5){
-   
-    const TeachernameClass = Parse.Object.extend('tt');
-    const teachername = new TeachernameClass();
-    
-    teachername.set('name', v1);
-    teachername.set('surname',v2 );
-    teachername.set('date',new Date(v3) );
-    teachername.set('originalfile',v4 );
-    teachername.save('status',v5);
-  
-    console.log(JSON.parse(JSON.stringify(teachername)));
-    //this.tb.getData(this.value);//ฟังชั้นของ TabledataService
-  }*/
 }
