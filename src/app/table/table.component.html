@@ -1,6 +1,8 @@
 <mat-form-field>
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    
   </mat-form-field>
+  <button  mat-flat-button (click)="refresh2()" color="primary">Refresh</button>
   <br>
 <div class="example-container mat-elevation-z8" >
   

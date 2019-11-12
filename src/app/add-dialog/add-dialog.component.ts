@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ParseapiService } from '../parseapi.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
-import {FormControl} from '@angular/forms';
+import {FormControl, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 
@@ -13,19 +13,23 @@ import {map, startWith} from 'rxjs/operators';
   styleUrls: ['./add-dialog.component.css']
 })
 export class AddDialogComponent implements OnInit {
+  //formcontrol require----------------------------
+  tileFormControl = new FormControl('', [
+    Validators.required,
+  ]);
 
   constructor(public parse:ParseapiService,private _snackBar: MatSnackBar) {
     parse.init();
    }
 
-  //ทำ AutoCompete
+  //ทำ AutoCompete------------------
   myControl = new FormControl();
   options = ['One', 'Two', 'Three'];
   filteredOptions: Observable<string[]>;
- //--
+ //-----------------------
 
   ngOnInit() {
-    //this.parse.getAutoCompleteDocOwner();
+    this.parse.getAutoCompleteDocOwner();
 
     //--ทำ AutoCompete-------------------------------
     this.filteredOptions = this.myControl.valueChanges

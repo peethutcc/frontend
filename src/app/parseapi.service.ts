@@ -23,8 +23,14 @@ export class ParseapiService {
     Parse.serverURL = 'https://parseapi.back4app.com'; // This is your Server URL
     Parse.initialize(
       'ok5zCOkoYzbYRIH67sJ94ijRBovEWWYnA3XQj8ob', // This is your Application ID
-      '9WzuuI0ms4LBMk21WvgeFuMIXUQn2mBbpISdtyUI' // This is your Javascript key
-  )}
+      '9WzuuI0ms4LBMk21WvgeFuMIXUQn2mBbpISdtyUI', // This is your Javascript key
+      'RDgxCPpW7BB6RMEDpXznl6wngCAHM293ROrIjUu9' //master key
+  )
+}
+
+
+
+
 
   invokeFirstComponentFunction = new EventEmitter();    
   subsVar: Subscription;
@@ -141,13 +147,13 @@ export class ParseapiService {
     }
     if (this.ldocOwner !== undefined && this.ldocOwner !== ""){
       console.log(this.ldocOwner+"this is in docOwner if")
-      query.startsWith("docOwner", this.ldocOwner);
+      query.startsWith("docOwner", this.ldocOwner.trim().toLowerCase());
     }
     if (this.ltitle !== undefined && this.ltitle !== ""){
-      query.startsWith("titleName", this.ltitle);
+      query.startsWith("titleName", this.ltitle.trim().toLowerCase());
     }
     if (this.lcomment !== undefined && this.lcomment !== ""){
-      query.startsWith("comment", this.lcomment);
+      query.startsWith("comment", this.lcomment.trim().toLowerCase());
     }
     if (this.lstatus !== undefined && this.lstatus !== ""){
       query.startsWith("status", this.lstatus);
@@ -363,14 +369,25 @@ export class ParseapiService {
 
 
 
-  getAutoCompleteDocOwner(){
+  getAutoCompleteDocOwner() {
+
     //var MyCustomClass = Parse.Object.extend("meta_data");
     const query = new Parse.Query("meta_data");
 
-    // Returns unique emails
-    query.distinct("docOwner").then(results => {
-      console.log(`Unique emails: ${JSON.stringify(results)}`);
-    });
+    // // Returns unique emails
+    // query.find("docOwner").then(results => {
+    //   console.log(`Unique emails: ${JSON.stringify(results)}`);
+    // });
+
+    query.distinct("docOwner").then((results) => {
+   
+    console.log('ParseObjects found:', results);
+  }, (error) => {
+  
+    console.error('Error while fetching ParseObjects', error);
+  });
+
+
   }
 
 

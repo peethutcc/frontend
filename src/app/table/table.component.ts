@@ -24,8 +24,9 @@ export class TableComponent implements OnInit {
   datare:any[] = [];
   datare2;
   mailbox;
+
   //data = ELEMENT_DATA;
-  constructor(public tb:TabledataService,public dialog: MatDialog,public ps:ParseapiService) {
+  constructor(public tb:TabledataService,public dialog: MatDialog,public ps:ParseapiService  ) {
     ps.init();
    }
 
@@ -122,5 +123,21 @@ export class TableComponent implements OnInit {
   sendselectedrow(){
     this.ps.getselectedrowfromtable(this.selection.selected);
   }
+
+ 
+
+  createdAt1='';
+  createdAt2='';
+  docDate1='';
+  docDate2='';
+  docOwner='';
+  title='';
+  comment='';
+  status='';
+  refresh2() {
+   this.ps.searchData(this.createdAt1,this.createdAt2,this.docDate1,this.docDate2,this.docOwner,this.title,this.comment,this.status)
+   this.getDataall();
+
+ }
 }
 
