@@ -2,7 +2,10 @@
 <mat-dialog-content >
     <div class="example-container">
         <mat-form-field>
-            <input  #title matInput placeholder="หัวข้อเรื่อง" required>
+            <input  #title [formControl]="tileFormControl" matInput placeholder="หัวข้อเรื่อง" required>
+            <mat-error *ngIf="tileFormControl.hasError('required')">
+                Title is <strong>required</strong>
+            </mat-error>
             
         </mat-form-field>
               

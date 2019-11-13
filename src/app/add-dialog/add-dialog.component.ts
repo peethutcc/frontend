@@ -15,7 +15,7 @@ import {map, startWith} from 'rxjs/operators';
 export class AddDialogComponent implements OnInit {
   //formcontrol require----------------------------
   tileFormControl = new FormControl('', [
-    Validators.required,
+    Validators.required
   ]);
 
   constructor(public parse:ParseapiService,private _snackBar: MatSnackBar) {
@@ -29,7 +29,7 @@ export class AddDialogComponent implements OnInit {
  //-----------------------
 
   ngOnInit() {
-    this.parse.getAutoCompleteDocOwner();
+    //this.parse.getAutoCompleteDocOwner();
 
     //--ทำ AutoCompete-------------------------------
     this.filteredOptions = this.myControl.valueChanges
