@@ -23,7 +23,9 @@ export class FileDialogComponent implements OnInit {
   mailbox;
   fileData: File = null;
   progress:number=0;
+  role;
   ngOnInit() {
+    this.role = this.ps.role;
 
     //รับข้อมูล
     this.getFileDataAll();

@@ -27,7 +27,7 @@
                 <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
                 <mat-datepicker #picker4></mat-datepicker>
             </mat-form-field> 
-            <h2>รายระเอียดเอกสาร</h2>
+            <h2>รายละเอียดเอกสาร</h2>
             <mat-form-field class="ass">
                 <input #docOwner  matInput placeholder="เจ้าของเรื่อง">
             </mat-form-field>
@@ -42,9 +42,15 @@
             
             <mat-form-field  >
                 <mat-select #status placeholder="สถานะ" >
-                    <mat-option value="">ทั้งหมด</mat-option>
-                    <mat-option value="กำลังดำเนินการ">กำลังดำเนินการ</mat-option>
-                    <mat-option value="เสร็จ">เสร็จ</mat-option>
+                    <mat-option value="ยังไม่เสร็จสิ้น">ยังไม่เสร็จสิ้น</mat-option>
+                    <mat-option value="เสร็จสิ้นแล้ว">เสร็จสิ้นแล้ว</mat-option>
+                    <mat-option value="รับเรื่องแล้ว">รับเรื่องแล้ว</mat-option>
+                    <mat-option value="อยู่ระหว่างการพิจารณา">อยู่ระหว่างการพิจารณา</mat-option>
+                    <mat-option value="ส่งหน่วยงานที่เกี่ยวข้อง">ส่งหน่วยงานที่เกี่ยวข้อง</mat-option>
+                    <mat-option value="อนุมัติ">อนุมัติ</mat-option>
+                    <mat-option value="ไม่อนุมัติ">ไม่อนุมัติ</mat-option>
+                    <mat-option value="รับทราบ">รับทราบ</mat-option>
+                    <mat-option value="ลงนาม">ลงนาม</mat-option>
                 </mat-select>
             </mat-form-field>    
     </div>

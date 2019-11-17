@@ -19,7 +19,7 @@
                   <button mat-icon-button  [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
                   <mat-menu #menu="matMenu">
                     <button mat-menu-item (click)="downloadFile()" ><mat-icon>save_alt</mat-icon>ดึง</button>
-                    <button mat-menu-item (click)="deletedata()"><mat-icon>delete</mat-icon>ลบ</button>
+                    <button mat-menu-item *ngIf="role == 0" (click)="deletedata()"><mat-icon>delete</mat-icon>ลบ</button>
                   </mat-menu>
                 </td>
               </ng-container>
@@ -36,7 +36,7 @@
                 <progress-bar [progress]="progress" [color]="'#488aff'">
                 </progress-bar>
         </div>
-    <input type="file" name="image" (change)="fileProgress($event)" />
-    <button type="submit" (click)="callupload()" mat-button >Upload</button>
+    <input type="file"  *ngIf="role == 0" name="image" (change)="fileProgress($event)" />
+    <button type="submit" *ngIf="role == 0" (click)="callupload()" mat-button >Upload</button>
     <button mat-button mat-dialog-close>Close</button>
 </mat-dialog-actions>
