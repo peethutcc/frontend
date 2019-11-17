@@ -29,8 +29,9 @@ export class TableComponent implements OnInit {
   constructor(public tb:TabledataService,public dialog: MatDialog,public ps:ParseapiService  ) {
     ps.init();
    }
-
+   role;
   ngOnInit() {
+    this.role = this.ps.role;
     
     //ไว้เรียงข้อมูล
     //this.data.sort = this.sort;
@@ -90,7 +91,7 @@ export class TableComponent implements OnInit {
     //console.log(this.selection._selected);
   }
 
-  // selection------------
+  // selection----------------------
   //ไว้เลือก selection
   selection = new SelectionModel<any>(true, []);
 
@@ -118,7 +119,7 @@ export class TableComponent implements OnInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
     
   }
-  /////----------------
+  /////------------------------------
 
   sendselectedrow(){
     this.ps.getselectedrowfromtable(this.selection.selected);

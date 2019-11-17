@@ -18,9 +18,9 @@ constructor(public dialog: MatDialog,
   ps.init();
 }
 data;
-
+role;
     ngOnInit() {
-      
+      this.role = this.ps.role;
     }
 
     openDialogAdd(){
@@ -34,6 +34,10 @@ data;
     getdatafromtable(){
       this.data = this.ps.sendselectedrowfromservice();
       this.exportAsXLSX();
+    }
+
+    logout(){
+      this.ps.logout();
     }
 
     exportAsXLSX():void {

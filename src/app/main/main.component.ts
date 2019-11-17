@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ParseapiService } from '../parseapi.service';
+import { Router } from '@angular/router';
+import { NgZone } from '@angular/core';
 
 @Component({
   selector: 'app-main',
@@ -7,9 +10,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public ps:ParseapiService,
+    private ngZone: NgZone,
+    public router: Router
+    ) { }
 
   ngOnInit() {
+    if(this.ps.islogin == false){
+      this.ngZone.run(() => this.router.navigate(['/']));
+    };
+
+    
   }
 
 }

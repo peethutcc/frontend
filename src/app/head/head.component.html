@@ -5,10 +5,10 @@
             style="max-width:    15%; min-width: 15%;">
             
             <span class="example-spacer"></span>
-            <button mat-button  (click)="openDialogAdd()" ><mat-icon>add</mat-icon> New</button>
+            <button mat-button *ngIf="role == 0"  (click)="openDialogAdd()" ><mat-icon>add</mat-icon> New</button>
             <button mat-button  (click)="openDialogSearch()" ><mat-icon>search</mat-icon> Search</button>
-            <button mat-button  (click)="getdatafromtable()" ><mat-icon>move_to_inbox</mat-icon> Export</button>
-            <button mat-button color="warn" routerLink='/'>Logout</button>
+            <button mat-button  *ngIf="role == 0" (click)="getdatafromtable()" ><mat-icon>move_to_inbox</mat-icon> Export</button>
+            <button mat-button color="warn" (click)="logout()" >Logout</button>
     </mat-toolbar-row>
 </mat-toolbar>
 <!-- -->

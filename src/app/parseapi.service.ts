@@ -1,10 +1,10 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable, EventEmitter , NgZone } from '@angular/core';
 import * as Parse from'parse';//อิมพอร์ตparse
 import {MatTableDataSource} from '@angular/material/table';
 import { TableComponent } from './table/table.component';
 import { stringify } from 'querystring';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute , ParamMap } from '@angular/router';
 import { Subscription } from 'rxjs';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
@@ -15,9 +15,11 @@ import * as XLSX from 'xlsx';
 export class ParseapiService {
   datare2;
   
-  constructor(private _snackBar: MatSnackBar,private router: Router) { 
-    
-  }
+  constructor(
+    private _snackBar: MatSnackBar,
+    private ngZone: NgZone,
+    public router: Router
+    ) {}
   //เรียกให้มันอินิตตามที่เราตั้งไว้
   init(){
     Parse.serverURL = 'https://parseapi.back4app.com'; // This is your Server URL
@@ -314,25 +316,34 @@ export class ParseapiService {
     user.set('username', u1);
     user.set("password", u2);
     user.set("email", u3);
+    user.set("role", "0");
 
     user.signUp().then(function(user) {
         console.log('User created successful with name: ' + user.get("username") + ' and email: ' + user.get("email"));
-        this.router.navigate('/');
+        this.ngZone.run(() => this.router.navigate(['/']));
     }).catch(function(error){
-        console.log("Error: " + error.code + " " + error.message);
+        alert("Error: " + error.code + " " + error.message);
     });
     
   }
 
   //login
-  logIn(u1, u2) {
-    var user = Parse.User
-    .logIn(u1, u2).then(function(user) {
-        console.log('User Login successful with name: ' + user.get("username") + ' and email: ' + user.get("email"));
-        this.router.navigate('/main');
+  role = '';
+  islogin = false;
+  async logIn(u1, u2) {
+    var user = await Parse.User.logIn(u1, u2).then((user)=> {
+      this.role = user.get("role");
+      this.islogin = true;
+      console.log(this.role);
+      this.ngZone.run(() => this.router.navigate(['/main']));
   }).catch(function(error){
-    console.log("Error: " + error.code + " " + error.message);
+    alert("Error: " + error.code + " " + error.message);
   });
+  }
+
+  logout(){
+    this.islogin = false;
+    this.ngZone.run(() => this.router.navigate(['/']));
   }
 
 

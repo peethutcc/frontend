@@ -2,7 +2,7 @@
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
     
   </mat-form-field>
-  <button  mat-flat-button (click)="refresh2()" color="primary">Refresh</button>
+  <button class="btn" mat-flat-button (click)="refresh2()" color="primary">Refresh</button>
   <br>
 <div class="example-container mat-elevation-z8" >
   
@@ -12,7 +12,7 @@
           The actual rendered columns are set as a property on the row definition" -->
   
     <!-- Checkbox Column -->
-  <ng-container matColumnDef="select">
+  <ng-container matColumnDef="select" >
     <th mat-header-cell *matHeaderCellDef>
       <mat-checkbox (change)="$event ? masterToggle() : null"
                     [checked]="selection.hasValue() && isAllSelected()"
@@ -78,8 +78,8 @@
         <button mat-icon-button  [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item (click)="openDialogFile()" ><mat-icon>description</mat-icon>ไฟล์</button>
-          <button mat-menu-item (click)="openDialogEdit()"><mat-icon>edit</mat-icon>แก้ไข</button>
-          <button mat-menu-item (click)="openDialogDelete()"><mat-icon>delete</mat-icon>ลบ</button>
+          <button mat-menu-item *ngIf="role == 0" (click)="openDialogEdit()"><mat-icon>edit</mat-icon>แก้ไข</button>
+          <button mat-menu-item *ngIf="role == 0" (click)="openDialogDelete()"><mat-icon>delete</mat-icon>ลบ</button>
         </mat-menu>
       </td>
     </ng-container>

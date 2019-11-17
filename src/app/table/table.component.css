@@ -5,7 +5,7 @@
 .mat-form-field {
   font-size: 14px;
   width: 90%;
-  margin-right:20px;
+  margin-right:10px;
 }
 th.mat-sort-header-sorted {
   color: black;
@@ -17,5 +17,8 @@ table {
 
 .refreshbnt{
   margin-left:50px;
+}
+.btn{
+  width: 9%;
 }
 
