@@ -310,29 +310,31 @@ export class ParseapiService {
   }
 
   //singup
-  signUp(u1, u2, u3) {
+  async signUp(u1, u2, u3) {
 
     var user = new Parse.User();
     user.set('username', u1);
     user.set("password", u2);
     user.set("email", u3);
     user.set("role", "0");
+    user.set("approve", false);
 
-    user.signUp().then(function(user) {
-        console.log('User created successful with name: ' + user.get("username") + ' and email: ' + user.get("email"));
-        this.ngZone.run(() => this.router.navigate(['/']));
+    await user.signUp().then(function(user) {
+      alert('User created successful with name: ' + user.get("username") + ' and email: ' + user.get("email"));
     }).catch(function(error){
         alert("Error: " + error.code + " " + error.message);
     });
-    
+    this.ngZone.run(() => this.router.navigate(['/']));
   }
 
   //login
   role = '';
   islogin = false;
+  isapprove = false;
   async logIn(u1, u2) {
     var user = await Parse.User.logIn(u1, u2).then((user)=> {
       this.role = user.get("role");
+      this.isapprove = user.get("approve");
       this.islogin = true;
       console.log(this.role);
       this.ngZone.run(() => this.router.navigate(['/main']));
@@ -344,6 +346,46 @@ export class ParseapiService {
   logout(){
     this.islogin = false;
     this.ngZone.run(() => this.router.navigate(['/']));
+  }
+
+  /// get user
+  async getUserData(){
+    const User = new Parse.User();
+    const query = new Parse.Query(User);
+
+    // Just the objectId is enough to compare the object
+    query.equalTo("approve", false);
+
+    this.data = await query.find().then((results) => {
+      console.log(JSON.parse(JSON.stringify(results)));
+
+      return results;
+
+    }, (error) => {
+      if (typeof document !== 'undefined') document.write(`Error while fetching My2Class: ${JSON.stringify(error)}`);
+      console.error('Error while fetching My2Class', error);
+    });
+
+    return this.data;
+  }
+
+ ///ไว้ยืนยันUser
+  approveUser(id){
+    const User = new Parse.User();
+    const query = new Parse.Query(User);
+
+    // Finds the user by its ID
+    query.get(id).then((user) => {
+      // Updates the data we want
+      user.set('approve', true);
+      // Saves the user with the updated data
+      user.save().then((response) => {
+        console.log('Updated user', response);
+      }).catch((error) => {
+        if (typeof document !== 'undefined') document.write(`Error while updating user: ${JSON.stringify(error)}`);
+        console.error('Error while updating user', error);
+      });
+    });
   }
 
 

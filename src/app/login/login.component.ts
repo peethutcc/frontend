@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ParseapiService } from '../parseapi.service';
-
+import { NgZone } from '@angular/core';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -9,12 +10,19 @@ import { ParseapiService } from '../parseapi.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public parse:ParseapiService) {
-    parse.init();
+  constructor(
+    public ps:ParseapiService,
+    private ngZone: NgZone,
+    public router: Router) {
+    ps.init();
    }
 
   ngOnInit() {
+    if(this.ps.islogin == true && this.ps.isapprove == true ){
+      this.ngZone.run(() => this.router.navigate(['/main']));
+    }
   }
+
   form: FormGroup = new FormGroup({
     username: new FormControl(''),
     password: new FormControl(''),
@@ -29,8 +37,9 @@ export class LoginComponent implements OnInit {
 
   @Output() submitEM = new EventEmitter();
 
+
   logIn(u1,u2){
-    this.parse.logIn(u1,u2);
+    this.ps.logIn(u1,u2);
     
   }
 }

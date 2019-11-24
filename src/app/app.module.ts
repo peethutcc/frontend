@@ -53,7 +53,8 @@ import { UploadComponent } from './upload/upload.component';
 import { HttpClientModule } from '@angular/common/http';
 
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {ProgressBarModule} from "angular-progress-bar"
+import {ProgressBarModule} from "angular-progress-bar";
+import { UserDialogComponent } from './user-dialog/user-dialog.component'
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import {ProgressBarModule} from "angular-progress-bar"
     RegisterComponent,
     FileDialogComponent,
     UploadComponent,
+    UserDialogComponent,
     
 
   ],
@@ -109,6 +111,6 @@ import {ProgressBarModule} from "angular-progress-bar"
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents:[AddDialogComponent,SearchDialogComponent,EditDialogComponent,DeleteDialogComponent,FileDialogComponent],
+  entryComponents:[AddDialogComponent,SearchDialogComponent,EditDialogComponent,DeleteDialogComponent,FileDialogComponent,UserDialogComponent],
 })
 export class AppModule { }

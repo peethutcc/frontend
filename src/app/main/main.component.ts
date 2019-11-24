@@ -17,7 +17,10 @@ export class MainComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    if(this.ps.islogin == false){
+    if(this.ps.islogin == true && this.ps.isapprove == false ){
+      alert("โปรดติดต่อผู้ดูแลระบบเพื่อทำการยืนยัน");
+      this.ngZone.run(() => this.router.navigate(['/']));
+    }else if(this.ps.islogin == false ){
       this.ngZone.run(() => this.router.navigate(['/']));
     };
 

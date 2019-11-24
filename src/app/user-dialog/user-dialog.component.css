@@ -1,0 +1,8 @@
+.example-container {
+    height: 480px;
+    overflow: auto;
+    width: 854px;
+  }
+  table {
+    width: 100%;
+  }

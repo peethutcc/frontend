@@ -1,6 +1,7 @@
 .example-container {
   height: 870px;
   overflow: auto;
+  
 }
 .mat-form-field {
   font-size: 14px;

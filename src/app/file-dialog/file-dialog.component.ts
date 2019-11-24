@@ -74,7 +74,7 @@ obid;
     this.mailbox=this.ps.getFileData();
     this.mailbox.then( results => {
       console.log("fromfilecomponent");
-      console.log(results);
+      //console.log(results);
       this.datare2 = JSON.parse(JSON.stringify(results))
       this.datare2 = new MatTableDataSource(this.datare2);
       this.datare2.sort = this.sort;
