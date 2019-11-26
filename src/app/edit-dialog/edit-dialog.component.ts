@@ -19,8 +19,8 @@ export class EditDialogComponent implements OnInit {
     this.ob =this.ps.getid();
   }
   
-  editdata(titleName,docOwner,docDate,ogManuscript,status,comment){
-    this.ps.edit(titleName,docOwner,docDate,ogManuscript,status,comment);
+  editdata(titleName,docOwner,docDate,ogManuscript,status,comment,docNumber){
+    this.ps.edit(titleName,docOwner,docDate,ogManuscript,status,comment,docNumber);
 
     console.log("this is in edit dialog")
     this.firstComponentFunction();

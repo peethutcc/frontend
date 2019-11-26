@@ -49,8 +49,8 @@ export class AddDialogComponent implements OnInit {
   //----------------------------------------------
 
 
- adddata(title,docowner,docdate,comment){
-    this.parse.onclickgetdata(title,docowner,docdate,comment);
+ adddata(title,docowner,docdate,comment,docnumber){
+    this.parse.onclickgetdata(title,docowner,docdate,comment,docnumber);
     
   }
 

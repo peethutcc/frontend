@@ -36,7 +36,7 @@ export class FileDialogComponent implements OnInit {
         this.getFileDataAll();    
       });    
     }
-    
+    //this.getFileDataAll();
   }
   fileProgress(fileInput: any) {
    // var fs=require('fs')
@@ -66,6 +66,7 @@ obid;
         setTimeout(() => {
           this.progress = 0;
         }, 1000);
+      
 
   };
 
@@ -90,6 +91,7 @@ obid;
   deletedata(){
     this.ps.deleteFile(this.obid.objectId);
   }
+  
 }
 
 

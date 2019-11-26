@@ -4,6 +4,10 @@
         <mat-form-field>
             <textarea #titleName matInput placeholder="หัวข้อเรื่อง" [value]="ob.titleName"></textarea>
         </mat-form-field>
+       
+        <mat-form-field>
+                <input #docNumber matInput placeholder="เลขที่หนังสือ" [value]="ob.docNumber">
+            </mat-form-field>
               
         <mat-form-field>
             <input #docOwner matInput placeholder="เจ้าของเรื่อง" [value]="ob.docOwner">
@@ -43,6 +47,6 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-    <button type="submit" mat-flat-button mat-dialog-close (click)="editdata(titleName.value,docOwner.value,docDate.value,ogManuscript.value,status.value,comment.value)">ENTER</button>
+    <button type="submit" mat-flat-button mat-dialog-close (click)="editdata(titleName.value,docOwner.value,docDate.value,ogManuscript.value,status.value,comment.value,docNumber.value)">ENTER</button>
     <button mat-button mat-dialog-close>Cancel</button>
 </mat-dialog-actions>

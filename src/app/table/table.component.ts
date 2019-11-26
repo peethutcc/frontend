@@ -9,6 +9,8 @@ import {MatTableDataSource} from '@angular/material/table';
 import { FileDialogComponent } from '../file-dialog/file-dialog.component';
 import { MatTable } from '@angular/material';
 import {SelectionModel} from '@angular/cdk/collections';
+import {MatPaginator} from '@angular/material/paginator';
+import { ClassificationDialogComponent } from '../classification-dialog/classification-dialog.component';
 
 
 @Component({
@@ -17,9 +19,10 @@ import {SelectionModel} from '@angular/cdk/collections';
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnInit {
-  displayedColumns: string[] = ['select','no','titleName', 'docOwner', 'ogManuscript','docDate','status','comment','actions'];
+  displayedColumns: string[] = ['select','no','docNumber','docDate', 'docOwner','titleName', 'ogManuscript','status','comment','actions'];
   //เรียงข้อมูล
   @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   datare:any[] = [];
   datare2;
@@ -38,7 +41,7 @@ export class TableComponent implements OnInit {
 
     //รับข้อมูล
     this.getDataall();
-
+    
     //test evenmitter
     if (this.ps.subsVar==undefined) {    
       this.ps.subsVar = this.ps.    
@@ -71,6 +74,10 @@ export class TableComponent implements OnInit {
     const dialogRef = this.dialog.open(FileDialogComponent, {width: '900px',height:'550px'});
   }
 
+  openDialogClassification(){
+    const dialogRef = this.dialog.open(ClassificationDialogComponent);
+  }
+
   getDataall(){
     this.mailbox=this.ps.getData();
     this.mailbox.then( results => {
@@ -79,6 +86,7 @@ export class TableComponent implements OnInit {
       this.datare2 = JSON.parse(JSON.stringify(results))
       this.datare2 = new MatTableDataSource(this.datare2);
       this.datare2.sort = this.sort;
+      this.datare2.paginator = this.paginator;
 
       //this.table.renderRows();
     })
@@ -135,8 +143,10 @@ export class TableComponent implements OnInit {
   title='';
   comment='';
   status='';
+  docNumber='';
+  files='';
   refresh2() {
-   this.ps.searchData(this.createdAt1,this.createdAt2,this.docDate1,this.docDate2,this.docOwner,this.title,this.comment,this.status)
+   this.ps.searchData(this.createdAt1,this.createdAt2,this.docDate1,this.docDate2,this.docOwner,this.title,this.comment,this.status,this.docNumber,this.files)
    this.getDataall();
 
  }

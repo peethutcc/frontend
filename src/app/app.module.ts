@@ -55,6 +55,8 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {ProgressBarModule} from "angular-progress-bar";
 import { UserDialogComponent } from './user-dialog/user-dialog.component'
+import { MatPaginatorModule} from '@angular/material/paginator';
+import { ClassificationDialogComponent } from './classification-dialog/classification-dialog.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +77,7 @@ import { UserDialogComponent } from './user-dialog/user-dialog.component'
     FileDialogComponent,
     UploadComponent,
     UserDialogComponent,
+    ClassificationDialogComponent,
     
 
   ],
@@ -106,11 +109,12 @@ import { UserDialogComponent } from './user-dialog/user-dialog.component'
     MatSnackBarModule,
     HttpClientModule,
     MatAutocompleteModule,
-    ProgressBarModule
+    ProgressBarModule,
+    MatPaginatorModule
     
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents:[AddDialogComponent,SearchDialogComponent,EditDialogComponent,DeleteDialogComponent,FileDialogComponent,UserDialogComponent],
+  entryComponents:[AddDialogComponent,SearchDialogComponent,EditDialogComponent,DeleteDialogComponent,FileDialogComponent,UserDialogComponent,ClassificationDialogComponent],
 })
 export class AppModule { }

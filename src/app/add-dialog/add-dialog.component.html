@@ -8,6 +8,12 @@
             </mat-error>
             
         </mat-form-field>
+        <mat-form-field>
+            <input #docnumber matInput placeholder="เลขที่หนังสือ" >
+                <!-- AutoCompete docOwner-->
+            
+                <!-- AutoCompete docOwner-->
+        </mat-form-field>  
               
         <mat-form-field>
             <input #docowner matInput placeholder="เจ้าของเรื่อง" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
@@ -53,6 +59,6 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-    <button type="submit" mat-flat-button mat-dialog-close (click)=" adddata(title.value,docowner.value,docdate.value,comment.value)">ENTER</button>
+    <button type="submit" mat-flat-button mat-dialog-close (click)=" adddata(title.value,docowner.value,docdate.value,comment.value,docnumber.value)">ENTER</button>
     <button mat-button mat-dialog-close>Cancel</button>
 </mat-dialog-actions>

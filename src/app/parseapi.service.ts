@@ -64,7 +64,7 @@ export class ParseapiService {
 
 
   //aaddata function
-  async onclickgetdata(title,docowner,docdate,comment){
+  async onclickgetdata(title,docowner,docdate,comment,docnumber){
     
     const meta_dataClass = Parse.Object.extend('meta_data');
     const meta_data = new meta_dataClass();
@@ -91,6 +91,7 @@ export class ParseapiService {
         }
 
         meta_data.set('titleName', title);
+        meta_data.set('docNumber', docnumber);
         meta_data.set('docOwner',docowner );
         meta_data.set('docDate',new Date(docdate));
         meta_data.set('ogManuscript',"" );
@@ -108,6 +109,33 @@ export class ParseapiService {
     //console.log(JSON.parse(JSON.stringify(teachername)));
     //this.tb.getData(this.value);//ฟังชั้นของ TabledataService
   }
+  //-----------------------------------------------------------
+
+  classificationData(files,ogManuscript,copy,status){
+    const TeachernameClass = Parse.Object.extend('meta_data');
+    const query = new Parse.Query(TeachernameClass);
+    
+    query.get(this.Obid.objectId).then((teachername) => {
+
+      teachername.set('files', files);
+      teachername.set('ogManuscript', ogManuscript);
+      teachername.set('copy',copy );
+      teachername.save('status',status ).then((response) => {
+        //this.invokeFirstComponentFunction.emit(); 
+        console.log('this is in edit then');
+        this.onFirstComponentButtonClick()
+        this._snackBar.open('แก้ไข', 'สำเร็จ', {
+          duration: 2000,
+        });
+      });
+    });
+
+
+  }
+
+
+
+  //-----------------------------------------------------------
   data;
 
   query(){
@@ -121,8 +149,10 @@ export class ParseapiService {
   ltitle;
   lcomment;
   lstatus;
+  ldocNumber;
+  lfiles;
   //ฟั่งชั่นรับค่าค้นหา
-  searchData(createdAt1,createdAt2,docDate1,docDate2,docOwner,title,comment,status){
+  searchData(createdAt1,createdAt2,docDate1,docDate2,docOwner,title,comment,status,docNumber,files){
     this.lcreatedAt1 = createdAt1
     this.lcreatedAt2 = createdAt2
     this.ldocDate1 = docDate1
@@ -131,6 +161,8 @@ export class ParseapiService {
     this.ltitle = title
     this.lcomment = comment
     this.lstatus = status
+    this.ldocNumber = docNumber
+    this.lfiles = files
   }
 
   //showdata function
@@ -143,9 +175,17 @@ export class ParseapiService {
       query.greaterThanOrEqualTo("createdAt", new Date(this.lcreatedAt1));
       query.lessThanOrEqualTo("createdAt", new Date(this.lcreatedAt2));
     }
+    if ((this.lcreatedAt1 !== undefined && this.lcreatedAt1 !== "")){
+      query.greaterThanOrEqualTo("createdAt", new Date(this.lcreatedAt1));
+      query.lessThanOrEqualTo("createdAt", new Date(this.lcreatedAt1));
+    }
     if ((this.ldocDate1 !== undefined && this.ldocDate1 !== "") && (this.ldocDate2 !== undefined && this.ldocDate2 !== "")){
       query.greaterThanOrEqualTo("docDate", new Date(this.ldocDate1));
       query.lessThanOrEqualTo("docDate", new Date(this.ldocDate2));
+    }
+    if ((this.ldocDate1 !== undefined && this.ldocDate1 !== "")){
+      query.greaterThanOrEqualTo("docDate", new Date(this.ldocDate1));
+      query.lessThanOrEqualTo("docDate", new Date(this.ldocDate1));
     }
     if (this.ldocOwner !== undefined && this.ldocOwner !== ""){
       console.log(this.ldocOwner+"this is in docOwner if")
@@ -159,6 +199,12 @@ export class ParseapiService {
     }
     if (this.lstatus !== undefined && this.lstatus !== ""){
       query.startsWith("status", this.lstatus);
+    }
+    if (this.lfiles !== undefined && this.lfiles !== ""){
+      query.startsWith("files", this.lfiles.trim().toLowerCase());
+    }
+    if (this.ldocNumber !== undefined && this.ldocNumber !== ""){
+      query.startsWith("docNumber", this.ldocNumber.trim().toLowerCase());
     }else{
       query.descending("createdAt");
       query.limit(20);
@@ -182,13 +228,14 @@ export class ParseapiService {
 
 
   //editdata function
-  edit(titleName,docOwner,docDate,ogManuscript,status,comment){
+  edit(titleName,docOwner,docDate,ogManuscript,status,comment,docNumber){
     const TeachernameClass = Parse.Object.extend('meta_data');
     const query = new Parse.Query(TeachernameClass);
     
     query.get(this.Obid.objectId).then((teachername) => {
 
       teachername.set('titleName', titleName);
+      teachername.set('docNumber', docNumber);
       teachername.set('docOwner',docOwner );
       teachername.set('ogManuscript',ogManuscript );
       //teachername.set('amount',Number(v5) );

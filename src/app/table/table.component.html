@@ -3,6 +3,7 @@
     
   </mat-form-field>
   <button class="btn" mat-flat-button (click)="refresh2()" color="primary">Refresh</button>
+  
   <br>
 <div class="example-container mat-elevation-z8" >
   
@@ -35,6 +36,18 @@
       <td mat-cell *matCellDef="let element"> {{element.no}} </td>
     </ng-container>
 
+      <!-- docDate Column -->
+   <ng-container matColumnDef="docDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>วันที่เอกสาร</th>
+      <td mat-cell *matCellDef="let element"> {{element.docDate.iso|date}} </td>
+    </ng-container>
+
+    <!-- docNumber Column -->
+    <ng-container matColumnDef="docNumber">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>เลขที่หนังสือ</th>
+        <td mat-cell *matCellDef="let element"> {{element.docNumber}} </td>
+      </ng-container>
+
     <!-- titleName Column -->
     <ng-container matColumnDef="titleName">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>หัวข้อเรื่อง</th>
@@ -53,11 +66,8 @@
       <td mat-cell *matCellDef="let element"> {{element.ogManuscript}} </td>
     </ng-container>
 
-    <!-- docDate Column -->
-    <ng-container matColumnDef="docDate">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>วันที่เอกสาร</th>
-      <td mat-cell *matCellDef="let element"> {{element.docDate.iso|date}} </td>
-    </ng-container>
+  
+
 
     <!-- status Column -->
     <ng-container matColumnDef="status">
@@ -73,11 +83,12 @@
 
     <!-- icon Column -->
     <ng-container matColumnDef="actions" >
-      <th mat-header-cell *matHeaderCellDef mat-sort-header ></th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header >เมนู</th>
       <td mat-cell *matCellDef="let row">
         <button mat-icon-button  [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="openDialogFile()" ><mat-icon>description</mat-icon>ไฟล์</button>
+          <button mat-menu-item (click)="openDialogFile()" ><mat-icon>description</mat-icon>แนบไฟล์</button>
+          <button mat-menu-item *ngIf="role == 0" (click)="openDialogClassification()"><mat-icon>file_copy</mat-icon>จำแนก</button>
           <button mat-menu-item *ngIf="role == 0" (click)="openDialogEdit()"><mat-icon>edit</mat-icon>แก้ไข</button>
           <button mat-menu-item *ngIf="role == 0" (click)="openDialogDelete()"><mat-icon>delete</mat-icon>ลบ</button>
         </mat-menu>
@@ -87,6 +98,7 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
     <tr mat-row (click)="onclicktestdata(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> 
 </div>
 
 

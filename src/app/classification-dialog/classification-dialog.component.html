@@ -1,0 +1,52 @@
+<h2 mat-dialog-title>Classification Data</h2>
+<mat-dialog-content >
+    <div class="example-container">
+    <mat-form-field>
+        <mat-select #files placeholder="แฟ้มเอกสาร" value=" ">
+            <mat-option value="ยังไม่เสร็จสิ้น">ยังไม่เสร็จสิ้น</mat-option>
+            <mat-option value="เสร็จสิ้นแล้ว">เสร็จสิ้นแล้ว</mat-option>
+            <mat-option value="รับเรื่องแล้ว">รับเรื่องแล้ว</mat-option>
+            <mat-option value="อยู่ระหว่างการพิจารณา">อยู่ระหว่างการพิจารณา</mat-option>
+            <mat-option value="ส่งหน่วยงานที่เกี่ยวข้อง">ส่งหน่วยงานที่เกี่ยวข้อง</mat-option>
+            <mat-option value="อนุมัติ">อนุมัติ</mat-option>
+            <mat-option value="ไม่อนุมัติ">ไม่อนุมัติ</mat-option>
+            <mat-option value="รับทราบ">รับทราบ</mat-option>
+            <mat-option value="ลงนาม">ลงนาม</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+
+        <mat-form-field>
+            <input  #ogManuscript  matInput placeholder="ต้นฉบับ" required>
+            
+            
+        </mat-form-field>
+        <mat-form-field>
+            <input #copy matInput placeholder="สำเนา" >
+                <!-- AutoCompete docOwner-->
+            
+                <!-- AutoCompete docOwner-->
+        </mat-form-field>  
+              
+        <mat-form-field>
+                <mat-select #status placeholder="สถานะ" >
+                    <mat-option value="ยังไม่เสร็จสิ้น">ยังไม่เสร็จสิ้น</mat-option>
+                    <mat-option value="เสร็จสิ้นแล้ว">เสร็จสิ้นแล้ว</mat-option>
+                    <mat-option value="รับเรื่องแล้ว">รับเรื่องแล้ว</mat-option>
+                    <mat-option value="อยู่ระหว่างการพิจารณา">อยู่ระหว่างการพิจารณา</mat-option>
+                    <mat-option value="ส่งหน่วยงานที่เกี่ยวข้อง">ส่งหน่วยงานที่เกี่ยวข้อง</mat-option>
+                    <mat-option value="อนุมัติ">อนุมัติ</mat-option>
+                    <mat-option value="ไม่อนุมัติ">ไม่อนุมัติ</mat-option>
+                    <mat-option value="รับทราบ">รับทราบ</mat-option>
+                    <mat-option value="ลงนาม">ลงนาม</mat-option>
+                </mat-select>
+        </mat-form-field>
+        
+    </div>
+    
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button type="submit" mat-flat-button mat-dialog-close (click)=" classificationdata(files.value,ogManuscript.value,copy.value,status.value)">ENTER</button>
+    <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>
