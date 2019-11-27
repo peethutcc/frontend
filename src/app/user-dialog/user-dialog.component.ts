@@ -46,6 +46,6 @@ obid;
   }
 
   approveUser(){
-    this.ps.approveUser(this.obid.objectId);
+    this.ps.approveUser(this.obid.user.objectId);
   };
 }

@@ -305,6 +305,7 @@ export class ParseapiService {
 
     const meta_data = Parse.Object.extend("meta_data");
     const meta_dataquery = new Parse.Query(meta_data);
+
     const mymeta_data = new meta_data();
     mymeta_data.id = this.Obid.objectId;
 
@@ -363,10 +364,19 @@ export class ParseapiService {
     user.set('username', u1);
     user.set("password", u2);
     user.set("email", u3);
-    user.set("role", "0");
-    user.set("approve", false);
+    user.set("role", "1");
+    
+    
 
     await user.signUp().then(function(user) {
+
+      const approve = Parse.Object.extend('approve');
+      const myNewObject = new approve();
+
+      myNewObject.set('user', user);
+      myNewObject.set('approve', false);
+      myNewObject.save();
+
       alert('User created successful with name: ' + user.get("username") + ' and email: ' + user.get("email"));
     }).catch(function(error){
         alert("Error: " + error.code + " " + error.message);
@@ -379,10 +389,23 @@ export class ParseapiService {
   islogin = false;
   isapprove = false;
   async logIn(u1, u2) {
-    var user = await Parse.User.logIn(u1, u2).then((user)=> {
+    var user = await Parse.User.logIn(u1, u2).then(async (user)=> {
       this.role = user.get("role");
-      this.isapprove = user.get("approve");
       this.islogin = true;
+
+      const approve = Parse.Object.extend('approve');
+      const approvequery = new Parse.Query(approve);
+
+      approvequery.equalTo("user", user);
+      console.log('User found', user);
+      var ss = await approvequery.find().then((results) => {
+        
+        console.log('approve found', results[0].get("approve"));
+        this.isapprove = results[0].get("approve")
+      }, (error) => {
+        if (typeof document !== 'undefined') document.write(`Error while fetching approve: ${JSON.stringify(error)}`);
+        console.error('Error while fetching approve', error);
+      });
       console.log(this.role);
       this.ngZone.run(() => this.router.navigate(['/main']));
   }).catch(function(error){
@@ -400,12 +423,16 @@ export class ParseapiService {
     const User = new Parse.User();
     const query = new Parse.Query(User);
 
-    // Just the objectId is enough to compare the object
-    query.equalTo("approve", false);
+    const approve = Parse.Object.extend('approve');
+    const approvequery = new Parse.Query(approve);
 
-    this.data = await query.find().then((results) => {
+    approvequery.equalTo("approve", false);
+    //approvequery.skip(1);
+    approvequery.include("user");
+
+    this.data = await approvequery.find().then((results) => {
       console.log(JSON.parse(JSON.stringify(results)));
-
+      //console.log(results[0].get("username"));
       return results;
 
     }, (error) => {
@@ -417,22 +444,45 @@ export class ParseapiService {
   }
 
  ///ไว้ยืนยันUser
+ userapproveid;
   approveUser(id){
     const User = new Parse.User();
     const query = new Parse.Query(User);
 
+    const approve = Parse.Object.extend('approve');
+    const approvequery = new Parse.Query(approve);
+    
+    
     // Finds the user by its ID
     query.get(id).then((user) => {
-      // Updates the data we want
-      user.set('approve', true);
-      // Saves the user with the updated data
-      user.save().then((response) => {
-        console.log('Updated user', response);
-      }).catch((error) => {
-        if (typeof document !== 'undefined') document.write(`Error while updating user: ${JSON.stringify(error)}`);
-        console.error('Error while updating user', error);
+      approvequery.equalTo("user", user);
+      console.log('User found', user);
+
+      approvequery.find().then((results) => {
+
+        let ndata = JSON.parse(JSON.stringify(results));
+        console.log(ndata[0].objectId);
+        this.userapproveid = ndata[0].objectId;
+
+        approvequery.get(this.userapproveid).then((object) => {
+          object.set('approve', true);
+          object.save().then((response) => {
+
+            console.log('Updated approve', response);
+          }, (error) => {
+            if (typeof document !== 'undefined') document.write(`Error while updating approve: ${JSON.stringify(error)}`);
+            console.error('Error while updating approve', error);
+          });
+        });
+      }, (error) => {
+        if (typeof document !== 'undefined') document.write(`Error while fetching approve: ${JSON.stringify(error)}`);
+        console.error('Error while fetching approve', error);
       });
+    }, (error) => {
+      if (typeof document !== 'undefined') document.write(`Error while fetching user: ${JSON.stringify(error)}`);
+      console.error('Error while fetching user', error);
     });
+    
   }
 
 
