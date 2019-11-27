@@ -16,7 +16,7 @@
         </mat-form-field>  
               
         <mat-form-field>
-            <input #docowner matInput placeholder="เจ้าของเรื่อง" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+            <input #docowner matInput placeholder="เจ้าของเรื่อง" aria-label="Number" [formControl]="myControl" [matAutocomplete]="auto">
             <!-- AutoCompete docOwner-->
             <mat-autocomplete #auto="matAutocomplete">
                 <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
