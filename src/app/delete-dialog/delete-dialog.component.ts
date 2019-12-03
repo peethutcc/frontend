@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ParseapiService } from '../parseapi.service';
 import * as Parse from'parse';
+import { MatSnackBar } from '@angular/material';
 @Component({
   selector: 'app-delete-dialog',
   templateUrl: './delete-dialog.component.html',
@@ -8,15 +9,19 @@ import * as Parse from'parse';
 })
 export class DeleteDialogComponent implements OnInit {
   id;
-  constructor(public ps:ParseapiService) { 
+  constructor(public ps:ParseapiService,private _snackBar: MatSnackBar) { 
     ps.init();
   }
 
   ngOnInit() {
     this.id =this.ps.getid();
   }
-deletedata(){
+  async deletedata(){
   this.ps.deletefiledata();
+  await this.delay(500);
+  this._snackBar.open('ลบข้อมูล', 'สำเร็จ', {
+    duration: 2000,
+  });
 
 }
 
@@ -38,6 +43,8 @@ firstComponentFunction(){
       });
     });
     }*/
-
+    delay(ms: number) {
+      return new Promise( resolve => setTimeout(resolve, ms) );
+  }
 
 }

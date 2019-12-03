@@ -2,7 +2,7 @@
 <mat-dialog-content >
     <div class="example-container">
         <mat-form-field  >
-            <mat-select #files placeholder="แฟ้มเอกสาร" >
+            <mat-select #files placeholder="แฟ้มเอกสาร" [value]="ob.files" >
                 <mat-option value="คำสั่ง มกค.">คำสั่ง มกค.</mat-option>
                 <mat-option value="คำสั่งคณะวิทยาศาสตร์">คำสั่งคณะวิทยาศาสตร์</mat-option>
                 <mat-option value="ประกาศ มกค.">ประกาศ มกค.</mat-option>
@@ -117,19 +117,19 @@
 
 
         <mat-form-field>
-            <input  #ogManuscript  matInput placeholder="ต้นฉบับ" required>
+            <input  #ogManuscript  matInput placeholder="ต้นฉบับ" [value]="ob.ogManuscript" required>
             
             
         </mat-form-field>
         <mat-form-field>
-            <input #copy matInput placeholder="สำเนา" >
+            <input #copy matInput placeholder="สำเนา" [value]="ob.copy" >
                 <!-- AutoCompete docOwner-->
             
                 <!-- AutoCompete docOwner-->
         </mat-form-field>  
               
         <mat-form-field>
-                <mat-select #status placeholder="สถานะ" >
+                <mat-select #status placeholder="สถานะ" [value]="ob.status" >
                     <mat-option value="ยังไม่เสร็จสิ้น">ยังไม่เสร็จสิ้น</mat-option>
                     <mat-option value="เสร็จสิ้นแล้ว">เสร็จสิ้นแล้ว</mat-option>
                     <mat-option value="รับเรื่องแล้ว">รับเรื่องแล้ว</mat-option>

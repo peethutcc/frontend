@@ -22,11 +22,18 @@ export class ParseapiService {
     ) {}
   //เรียกให้มันอินิตตามที่เราตั้งไว้
   init(){
-    Parse.serverURL = 'https://parseapi.back4app.com'; // This is your Server URL
+    Parse.serverURL = 'http://localhost:1337/parse'; // This is your Server URL
+    Parse.initialize(
+      'PROJECTA', // This is your Application ID
+      'PROJECTA' //master key
+
+
+
+     /* Parse.serverURL = 'https://parseapi.back4app.com/'; // This is your Server URL
     Parse.initialize(
       'ok5zCOkoYzbYRIH67sJ94ijRBovEWWYnA3XQj8ob', // This is your Application ID
       '9WzuuI0ms4LBMk21WvgeFuMIXUQn2mBbpISdtyUI', // This is your Javascript key
-      'RDgxCPpW7BB6RMEDpXznl6wngCAHM293ROrIjUu9' //master key
+      'RDgxCPpW7BB6RMEDpXznl6wngCAHM293ROrIjUu9' //master key */
   )
 }
 
@@ -95,11 +102,12 @@ export class ParseapiService {
         meta_data.set('docOwner',docowner );
         meta_data.set('docDate',new Date(docdate));
         meta_data.set('ogManuscript',"" );
+        meta_data.set('copy',"" );
         meta_data.save('comment',comment).then((response) => {
           this.onFirstComponentButtonClick();
-          this._snackBar.open('เพิ่มข้อมูล', 'สำเร็จ', {
-            duration: 2000,
-          });
+         /* this._snackBar.open('เพิ่มข้อมูล', 'สำเร็จ', {
+            duration: 1000,
+          });*/
         });
 
       });
@@ -124,9 +132,9 @@ export class ParseapiService {
         //this.invokeFirstComponentFunction.emit(); 
         console.log('this is in edit then');
         this.onFirstComponentButtonClick()
-        this._snackBar.open('แก้ไข', 'สำเร็จ', {
+      /*  this._snackBar.open('แก้ไข', 'สำเร็จ', {
           duration: 2000,
-        });
+        });*/
       });
     });
 
@@ -175,7 +183,7 @@ export class ParseapiService {
       query.greaterThanOrEqualTo("createdAt", new Date(this.lcreatedAt1));
       query.lessThanOrEqualTo("createdAt", new Date(this.lcreatedAt2));
     }
-    if ((this.lcreatedAt1 !== undefined && this.lcreatedAt1 !== "")){
+    if ((this.lcreatedAt1 !== undefined && this.lcreatedAt1 !== "") && (this.lcreatedAt2 == undefined && this.lcreatedAt2 == "")){
       query.greaterThanOrEqualTo("createdAt", new Date(this.lcreatedAt1));
       query.lessThanOrEqualTo("createdAt", new Date(this.lcreatedAt1));
     }
@@ -183,7 +191,7 @@ export class ParseapiService {
       query.greaterThanOrEqualTo("docDate", new Date(this.ldocDate1));
       query.lessThanOrEqualTo("docDate", new Date(this.ldocDate2));
     }
-    if ((this.ldocDate1 !== undefined && this.ldocDate1 !== "")){
+    if ((this.ldocDate1 !== undefined && this.ldocDate1 !== "") && (this.ldocDate2 == undefined && this.ldocDate2 == "")){
       query.greaterThanOrEqualTo("docDate", new Date(this.ldocDate1));
       query.lessThanOrEqualTo("docDate", new Date(this.ldocDate1));
     }
@@ -245,9 +253,9 @@ export class ParseapiService {
         //this.invokeFirstComponentFunction.emit(); 
         console.log('this is in edit then');
         this.onFirstComponentButtonClick()
-        this._snackBar.open('แก้ไข', 'สำเร็จ', {
+        /*this._snackBar.open('แก้ไข', 'สำเร็จ', {
           duration: 2000,
-        });
+        });*/
       });
     });
   }
@@ -261,9 +269,9 @@ export class ParseapiService {
       object.destroy().then(async (response) => {
         await this.delay(500);
         this.onSecondComponentButtonClick(); 
-        this._snackBar.open('ลบไฟล์', 'สำเร็จ', {
+        /*this._snackBar.open('ลบไฟล์', 'สำเร็จ', {
           duration: 2000,
-        });
+        });*/
         console.log('Deleted ParseObject', response);
       }, (error) => {
         if (typeof document !== 'undefined') document.write(`Error while deleting ParseObject: ${JSON.stringify(error)}`);
@@ -321,9 +329,9 @@ export class ParseapiService {
       this.filede(ndata,query,meta_dataquery).then(async ()=>{
         await this.delay(1000);
         this.onFirstComponentButtonClick();
-        this._snackBar.open('ลบข้อมูล', 'สำเร็จ', {
+      /*  this._snackBar.open('ลบข้อมูล', 'สำเร็จ', {
           duration: 2000,
-        });
+        });*/
       });
       
       
@@ -391,7 +399,10 @@ export class ParseapiService {
   async logIn(u1, u2) {
     var user = await Parse.User.logIn(u1, u2).then(async (user)=> {
       this.role = user.get("role");
+      localStorage.setItem('role', this.role);
+
       this.islogin = true;
+      localStorage.setItem('islogin', JSON.stringify(this.islogin));
 
       const approve = Parse.Object.extend('approve');
       const approvequery = new Parse.Query(approve);
@@ -402,6 +413,7 @@ export class ParseapiService {
         
         console.log('approve found', results[0].get("approve"));
         this.isapprove = results[0].get("approve")
+        localStorage.setItem('isapprove', JSON.stringify(this.isapprove));
       }, (error) => {
         if (typeof document !== 'undefined') document.write(`Error while fetching approve: ${JSON.stringify(error)}`);
         console.error('Error while fetching approve', error);
@@ -414,8 +426,11 @@ export class ParseapiService {
   }
 
   logout(){
-    this.islogin = false;
+    localStorage.removeItem('islogin');
+    localStorage.removeItem('role');
+    localStorage.removeItem('isapprove');
     this.ngZone.run(() => this.router.navigate(['/']));
+    
   }
 
   /// get user
@@ -503,12 +518,13 @@ export class ParseapiService {
     await myNewObject.save().then(async (ob) =>{
       await this.delay(500);
       this.onSecondComponentButtonClick(); 
-      this._snackBar.open('อัพโหลดไฟล์', 'สำเร็จ', {
+     /* this._snackBar.open('อัพโหลดไฟล์', 'สำเร็จ', {
         duration: 2000,
-      });
+      });*/
     });
     
   }
+  
 
   invokeSecondComponentFunction = new EventEmitter();    
   subsVar2: Subscription;

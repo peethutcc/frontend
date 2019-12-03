@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ParseapiService } from '../parseapi.service';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatSnackBar } from '@angular/material';
 import {MatSort} from '@angular/material/sort';
 import { Router } from '@angular/router';
 
@@ -15,7 +15,7 @@ export class FileDialogComponent implements OnInit {
  //เรียงข้อมูล
  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor(public ps:ParseapiService,private router: Router) {
+  constructor(public ps:ParseapiService,private router: Router,private _snackBar: MatSnackBar) {
     ps.init();
     
   }
@@ -55,7 +55,7 @@ obid;
     console.log(row);
   }
   //เรียกฟังชั่นupload
-  callupload(){
+  async callupload(){
     this.ps.upload(this.fileData);
     //uploadbar
     this.progress = Math.round(this.fileData.size /this.fileData.size * 100);
@@ -66,6 +66,10 @@ obid;
         setTimeout(() => {
           this.progress = 0;
         }, 1000);
+        await this.delay(700);
+        this._snackBar.open('อัพโหลดไฟล์', 'สำเร็จ', {
+          duration: 2000,
+        });
       
 
   };
@@ -88,10 +92,16 @@ obid;
     //return this.obid.file.url;
   }
 
-  deletedata(){
+  async deletedata(){
     this.ps.deleteFile(this.obid.objectId);
+    await this.delay(500);
+    this._snackBar.open('ลบไฟล์', 'สำเร็จ', {
+      duration: 2000,
+    });
   }
-  
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+}
 }
 
 

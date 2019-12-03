@@ -2,14 +2,15 @@
 <mat-dialog-content >
     <div class="example-container">
         <mat-form-field>
-            <input  #title [formControl]="tileFormControl" matInput placeholder="หัวข้อเรื่อง" required>
-            <mat-error *ngIf="tileFormControl.hasError('required')">
+            <input  #title [formControl]="titleFormControl" matInput placeholder="หัวข้อเรื่อง" required>
+            <mat-error *ngIf="titleFormControl.hasError('required')">
                 Title is <strong>required</strong>
             </mat-error>
             
         </mat-form-field>
         <mat-form-field>
-            <input #docnumber matInput placeholder="เลขที่หนังสือ" >
+            <input #docnumber type="number" matInput placeholder="เลขที่หนังสือ" >
+         
                 <!-- AutoCompete docOwner-->
             
                 <!-- AutoCompete docOwner-->
@@ -27,13 +28,16 @@
         </mat-form-field>
 
         <mat-form-field >
-            <input #docdate  matInput [matDatepicker]="picker" placeholder="วันที่ของเอกสาร">
+            <input #docdate [formControl]="dateFormControl" matInput [matDatepicker]="picker" placeholder="วันที่ของเอกสาร" required>
+            <mat-error *ngIf="dateFormControl.hasError('required')">
+                Date is <strong>required</strong>
+            </mat-error>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field>
-            <textarea #comment maxlength="256" matInput placeholder="หมายเหตุ" required></textarea>
+            <textarea #comment maxlength="256" matInput placeholder="หมายเหตุ" ></textarea>
             <mat-hint align="end">{{comment.value.length}} / 256</mat-hint>
         </mat-form-field>
 
@@ -59,6 +63,7 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-    <button type="submit" mat-flat-button mat-dialog-close (click)=" adddata(title.value,docowner.value,docdate.value,comment.value,docnumber.value)">ENTER</button>
+    <button type="submit" mat-flat-button *ngIf="!titleFormControl.hasError('required')&&!dateFormControl.hasError('required')" mat-dialog-close (click)=" adddata(title.value,docowner.value,docdate.value,comment.value,docnumber.value)">ENTER</button>
+    <button type="submit" mat-flat-button mat-dialog-close *ngIf="titleFormControl.hasError('required')||dateFormControl.hasError('required')" disabled (click)=" adddata(title.value,docowner.value,docdate.value,comment.value,docnumber.value)">ENTER</button>
     <button mat-button mat-dialog-close>Cancel</button>
 </mat-dialog-actions>

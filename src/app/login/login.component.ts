@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
    }
 
   ngOnInit() {
-    if(this.ps.islogin == true && this.ps.isapprove == true ){
+    if(localStorage.getItem("isapprove") == 'true' && localStorage.getItem("islogin") == 'true' ){
       this.ngZone.run(() => this.router.navigate(['/main']));
     }
   }

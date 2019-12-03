@@ -4,6 +4,7 @@ import { ParseapiService } from '../parseapi.service';
 import {FormControl, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-classification-dialog',
@@ -12,7 +13,7 @@ import {map, startWith} from 'rxjs/operators';
 })
 export class ClassificationDialogComponent implements OnInit {
 
-  constructor(public ps:ParseapiService) {
+  constructor(public ps:ParseapiService,private _snackBar: MatSnackBar) {
     ps.init();
    }
    //ทำ AutoCompete------------------
@@ -43,11 +44,16 @@ private _filter(value: string): string[] {
 }
 //----------------------------------------------
 
-  classificationdata(files,ogManuscript,copy,status){
+  async classificationdata(files,ogManuscript,copy,status){
     this.ps.classificationData(files,ogManuscript,copy,status);
-    
+    await this.delay(500);
+    this._snackBar.open('จำแนก', 'สำเร็จ', {
+      duration: 2000,
+    });
   }
 
-
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+}
 
 }

@@ -22,7 +22,7 @@ constructor(public dialog: MatDialog,
 data;
 role;
     ngOnInit() {
-      this.role = this.ps.role;
+      this.role = localStorage.getItem("role");
     }
 
     openDialogAdd(){
@@ -39,7 +39,14 @@ role;
     
     getdatafromtable(){
       this.data = this.ps.sendselectedrowfromservice();
-      this.exportAsXLSX();
+      console.log(this.data);
+      if(this.data.length == 0){
+        alert("โปรดเลือกข้อมูลที่จะ Export")
+      }else {
+        //alert("HAVE DATA")
+        this.exportAsXLSX();
+      }
+
     }
 
     logout(){

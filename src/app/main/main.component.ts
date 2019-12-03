@@ -17,11 +17,12 @@ export class MainComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    if(this.ps.islogin == true && this.ps.isapprove == false ){
+    if(localStorage.getItem("islogin") == 'true' && localStorage.getItem("isapprove") == 'false' ){
       alert("โปรดติดต่อผู้ดูแลระบบเพื่อทำการยืนยัน");
       this.ngZone.run(() => this.router.navigate(['/']));
-    }else if(this.ps.islogin == false ){
+    }else if(localStorage.getItem("islogin") == 'false' ||localStorage.getItem("islogin") == undefined ){
       this.ngZone.run(() => this.router.navigate(['/']));
+    
     };
 
     

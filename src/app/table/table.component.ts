@@ -34,7 +34,7 @@ export class TableComponent implements OnInit {
    }
    role;
   ngOnInit() {
-    this.role = this.ps.role;
+    this.role = localStorage.getItem("role");
     
     //ไว้เรียงข้อมูล
     //this.data.sort = this.sort;

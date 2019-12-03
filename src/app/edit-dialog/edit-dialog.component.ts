@@ -19,9 +19,12 @@ export class EditDialogComponent implements OnInit {
     this.ob =this.ps.getid();
   }
   
-  editdata(titleName,docOwner,docDate,ogManuscript,status,comment,docNumber){
+  async editdata(titleName,docOwner,docDate,ogManuscript,status,comment,docNumber){
     this.ps.edit(titleName,docOwner,docDate,ogManuscript,status,comment,docNumber);
-
+    await this.delay(500);
+    this._snackBar.open('แก้ไข', 'สำเร็จ', {
+      duration: 2000,
+    });
     console.log("this is in edit dialog")
     this.firstComponentFunction();
   }
@@ -48,6 +51,9 @@ export class EditDialogComponent implements OnInit {
   });
   }*/
 
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+}
 
   
 
