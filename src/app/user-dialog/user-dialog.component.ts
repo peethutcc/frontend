@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ParseapiService } from '../parseapi.service';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatSnackBar } from '@angular/material';
 import {MatSort} from '@angular/material/sort';
 
 
@@ -13,13 +13,20 @@ export class UserDialogComponent implements OnInit {
   displayedColumns: string[] = ['username', 'actions'];
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
-  constructor(public ps:ParseapiService) {
+  
+  constructor(public ps:ParseapiService,private _snackBar: MatSnackBar ) {
     ps.init();
    }
 
   ngOnInit() {
 
     this.getFileDataAll();
+    if (this.ps.subsVar3==undefined) {    
+      this.ps.subsVar3 = this.ps.    
+      invokeThirdComponentFunction.subscribe((name:string) => {    
+        this.getFileDataAll();    
+      });    
+    }
   }
 
 //เรียกตามไอดี
@@ -46,6 +53,11 @@ obid;
   }
 
   approveUser(){
-    this.ps.approveUser(this.obid.user.objectId);
+  this.ps.approveUser(this.obid.user.objectId);
+  this._snackBar.open('ยืนยัน', 'สำเร็จ', {
+    duration: 2000,
+  });
+    //this.ngOnInit();
+    //this.ps.onThirdComponentButtonClick();
   };
 }

@@ -183,7 +183,7 @@ export class ParseapiService {
       query.greaterThanOrEqualTo("createdAt", new Date(this.lcreatedAt1));
       query.lessThanOrEqualTo("createdAt", new Date(this.lcreatedAt2));
     }
-    if ((this.lcreatedAt1 !== undefined && this.lcreatedAt1 !== "") && (this.lcreatedAt2 == undefined && this.lcreatedAt2 == "")){
+    if ((this.lcreatedAt1 !== undefined && this.lcreatedAt1 !== "") && (this.lcreatedAt2 == undefined || this.lcreatedAt2 == "")){
       query.greaterThanOrEqualTo("createdAt", new Date(this.lcreatedAt1));
       query.lessThanOrEqualTo("createdAt", new Date(this.lcreatedAt1));
     }
@@ -191,7 +191,7 @@ export class ParseapiService {
       query.greaterThanOrEqualTo("docDate", new Date(this.ldocDate1));
       query.lessThanOrEqualTo("docDate", new Date(this.ldocDate2));
     }
-    if ((this.ldocDate1 !== undefined && this.ldocDate1 !== "") && (this.ldocDate2 == undefined && this.ldocDate2 == "")){
+    if ((this.ldocDate1 !== undefined && this.ldocDate1 !== "") && (this.ldocDate2 == undefined || this.ldocDate2 == "")){
       query.greaterThanOrEqualTo("docDate", new Date(this.ldocDate1));
       query.lessThanOrEqualTo("docDate", new Date(this.ldocDate1));
     }
@@ -482,8 +482,8 @@ export class ParseapiService {
         approvequery.get(this.userapproveid).then((object) => {
           object.set('approve', true);
           object.save().then((response) => {
-
-            console.log('Updated approve', response);
+            this.onThirdComponentButtonClick();
+           
           }, (error) => {
             if (typeof document !== 'undefined') document.write(`Error while updating approve: ${JSON.stringify(error)}`);
             console.error('Error while updating approve', error);
@@ -498,6 +498,13 @@ export class ParseapiService {
       console.error('Error while fetching user', error);
     });
     
+  }
+
+  invokeThirdComponentFunction = new EventEmitter();    
+  subsVar3: Subscription;
+
+  onThirdComponentButtonClick() {    
+    this.invokeThirdComponentFunction.emit();    
   }
 
 
