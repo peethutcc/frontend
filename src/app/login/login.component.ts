@@ -31,15 +31,16 @@ export class LoginComponent implements OnInit {
   submit() {
     if (this.form.valid) {
       this.submitEM.emit(this.form.value);
+      
     }
   }
   @Input() error: string | null;
 
   @Output() submitEM = new EventEmitter();
 
-
-  logIn(u1,u2){
+ logIn(u1,u2){
     this.ps.logIn(u1,u2);
+    
     
   }
 }

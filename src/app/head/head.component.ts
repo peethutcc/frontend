@@ -51,6 +51,7 @@ role;
 
     logout(){
       this.ps.logout();
+      
     }
 
     exportAsXLSX():void {

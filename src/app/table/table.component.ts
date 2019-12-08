@@ -147,7 +147,7 @@ export class TableComponent implements OnInit {
   files='';
   refresh2() {
    this.ps.searchData(this.createdAt1,this.createdAt2,this.docDate1,this.docDate2,this.docOwner,this.title,this.comment,this.status,this.docNumber,this.files)
-   this.getDataall();
+   this.getDataall(); 
 
  }
 }

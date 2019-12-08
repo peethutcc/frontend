@@ -403,10 +403,10 @@ export class ParseapiService {
 
       this.islogin = true;
       localStorage.setItem('islogin', JSON.stringify(this.islogin));
-
+      
       const approve = Parse.Object.extend('approve');
       const approvequery = new Parse.Query(approve);
-
+      
       approvequery.equalTo("user", user);
       console.log('User found', user);
       var ss = await approvequery.find().then((results) => {
@@ -414,15 +414,20 @@ export class ParseapiService {
         console.log('approve found', results[0].get("approve"));
         this.isapprove = results[0].get("approve")
         localStorage.setItem('isapprove', JSON.stringify(this.isapprove));
+       // window.location.reload();
+        
       }, (error) => {
         if (typeof document !== 'undefined') document.write(`Error while fetching approve: ${JSON.stringify(error)}`);
         console.error('Error while fetching approve', error);
       });
       console.log(this.role);
+      
       this.ngZone.run(() => this.router.navigate(['/main']));
+   
   }).catch(function(error){
     alert("Error: " + error.code + " " + error.message);
   });
+  window.location.reload();
   }
 
   logout(){
@@ -430,6 +435,7 @@ export class ParseapiService {
     localStorage.removeItem('role');
     localStorage.removeItem('isapprove');
     this.ngZone.run(() => this.router.navigate(['/']));
+    
     
   }
 

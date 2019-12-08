@@ -22,10 +22,9 @@ export class MainComponent implements OnInit {
       this.ngZone.run(() => this.router.navigate(['/']));
     }else if(localStorage.getItem("islogin") == 'false' ||localStorage.getItem("islogin") == undefined ){
       this.ngZone.run(() => this.router.navigate(['/']));
-    
+      
     };
-
-    
+ 
   }
 
 }

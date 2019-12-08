@@ -25,7 +25,7 @@ export class FileDialogComponent implements OnInit {
   progress:number=0;
   role;
   ngOnInit() {
-    this.role = this.ps.role;
+    this.role = localStorage.getItem("role");
 
     //รับข้อมูล
     this.getFileDataAll();
