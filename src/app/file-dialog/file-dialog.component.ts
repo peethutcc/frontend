@@ -70,7 +70,7 @@ obid;
         this._snackBar.open('อัพโหลดไฟล์', 'สำเร็จ', {
           duration: 2000,
         });
-      
+      this.ngOnInit();
 
   };
 
@@ -98,9 +98,11 @@ obid;
     this._snackBar.open('ลบไฟล์', 'สำเร็จ', {
       duration: 2000,
     });
+    this.ngOnInit();
   }
   delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );
+    
 }
 }
 

@@ -11,20 +11,11 @@
         <mat-form-field>
             <input #docnumber type="number" matInput placeholder="เลขที่หนังสือ" >
          
-                <!-- AutoCompete docOwner-->
-            
-                <!-- AutoCompete docOwner-->
         </mat-form-field>  
               
         <mat-form-field>
             <input #docowner matInput placeholder="เจ้าของเรื่อง" aria-label="Number" [formControl]="myControl" [matAutocomplete]="auto">
-            <!-- AutoCompete docOwner-->
-            <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                  {{option}}
-                </mat-option>
-              </mat-autocomplete>
-            <!-- AutoCompete docOwner-->
+            
         </mat-form-field>
 
         <mat-form-field >
@@ -40,23 +31,6 @@
             <textarea #comment maxlength="256" matInput placeholder="หมายเหตุ" ></textarea>
             <mat-hint align="end">{{comment.value.length}} / 256</mat-hint>
         </mat-form-field>
-
-        <!-- 
-        <mat-form-field>
-            <input #v4 matInput placeholder="ต้นฉบับ">
-        </mat-form-field>
-
-        <mat-form-field>
-            <input type="number" #v5 matInput placeholder="จำนวนเงิน">
-        </mat-form-field>
-              
-        <mat-form-field>
-            <mat-select #v6 placeholder="สถานะ">
-                <mat-option value="กำลังดำเนินการ">กำลังดำเนินการ</mat-option>
-                <mat-option value="เสร็จ">เสร็จ</mat-option>
-            </mat-select>
-        </mat-form-field> 
-        -->
         
     </div>
     

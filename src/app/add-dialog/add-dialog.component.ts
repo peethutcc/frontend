@@ -26,32 +26,12 @@ export class AddDialogComponent implements OnInit {
   
    }
 
-  //ทำ AutoCompete------------------
-  myControl = new FormControl();
-  options = ['One', 'Two', 'Three'];
-  filteredOptions: Observable<string[]>;
- //-----------------------
+
 
   ngOnInit() {
-    //this.parse.getAutoCompleteDocOwner();
-
-    //--ทำ AutoCompete-------------------------------
-    this.filteredOptions = this.myControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
-    //---------------------------------------------
-
+  
   }
-  //--ทำ AutoCompete----------------------------------
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
-  }
-  //----------------------------------------------
-
+  
 
  async adddata(title,docowner,docdate,comment,docnumber){
     this.parse.onclickgetdata(title,docowner,docdate,comment,docnumber);

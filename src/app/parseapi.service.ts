@@ -431,9 +431,7 @@ export class ParseapiService {
   }
 
   logout(){
-    localStorage.removeItem('islogin');
-    localStorage.removeItem('role');
-    localStorage.removeItem('isapprove');
+    localStorage.clear();
     this.ngZone.run(() => this.router.navigate(['/']));
     
     
