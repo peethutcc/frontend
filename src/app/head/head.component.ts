@@ -41,18 +41,19 @@ role;
       this.data = this.ps.sendselectedrowfromservice();
       let newdata = [{}];
       let n = 1;
-      for(let i of this.data){
-        console.log(i.titleName);
-        console.log(i.docOwner);
-        
-        newdata.push({"ลำดับที่":n,"ชื่อเรื่อง":i.titleName,"เจ้าของเรื่อง": i.docOwner});
-        n = n+1;
-      }
-      console.log(newdata);
-      this.data = newdata;
+      
       if(this.data.length == 0){
         alert("โปรดเลือกข้อมูลที่จะ Export")
       }else {
+        for(let i of this.data){
+          console.log(i.titleName);
+          console.log(i.docOwner);
+          
+          newdata.push({"ลำดับที่":n,"ชื่อเรื่อง":i.titleName,"เจ้าของเรื่อง": i.docOwner});
+          n = n+1;
+        }
+        console.log(newdata);
+        this.data = newdata;
         //alert("HAVE DATA")
         this.exportAsXLSX();
       }
