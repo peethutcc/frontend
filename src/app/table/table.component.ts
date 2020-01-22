@@ -88,6 +88,7 @@ export class TableComponent implements OnInit {
       this.datare2.sort = this.sort;
       this.datare2.paginator = this.paginator;
 
+      
       //this.table.renderRows();
     })
   }

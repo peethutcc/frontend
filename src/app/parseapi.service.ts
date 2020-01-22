@@ -22,18 +22,18 @@ export class ParseapiService {
     ) {}
   //เรียกให้มันอินิตตามที่เราตั้งไว้
   init(){
-    Parse.serverURL = 'http://localhost:1337/parse'; // This is your Server URL
+    /*Parse.serverURL = 'http://localhost:1337/parse'; // This is your Server URL
     Parse.initialize(
       'PROJECTA', // This is your Application ID
-      'PROJECTA' //master key
+      'PROJECTA' //master key*/
 
 
 
-     /* Parse.serverURL = 'https://parseapi.back4app.com/'; // This is your Server URL
+      Parse.serverURL = 'https://parseapi.back4app.com/'; // This is your Server URL
     Parse.initialize(
       'ok5zCOkoYzbYRIH67sJ94ijRBovEWWYnA3XQj8ob', // This is your Application ID
       '9WzuuI0ms4LBMk21WvgeFuMIXUQn2mBbpISdtyUI', // This is your Javascript key
-      'RDgxCPpW7BB6RMEDpXznl6wngCAHM293ROrIjUu9' //master key */
+      'RDgxCPpW7BB6RMEDpXznl6wngCAHM293ROrIjUu9' //master key 
   )
 }
 
@@ -224,6 +224,9 @@ export class ParseapiService {
     this.data = await query.find().then((results) => {
       console.log(JSON.parse(JSON.stringify(results)));
       //console.log(results);
+      if(JSON.parse(JSON.stringify(results)).length == 0){
+        alert("ไม่พบข้อมูลที่ค้นหา")
+      }
       return results;
 
     }, (error) => {
